@@ -1,0 +1,48 @@
+.blur-up {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  transition: filter 400ms, -webkit-filter 400ms;
+}
+.blur-up.lazyloaded {
+  -webkit-filter: blur(0);
+  filter: blur(0);
+}
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+body{
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+@include spaceStyle('.pt-','padding-top', 15);
+@include spaceStyle('.pt-','padding-top', 30);
+@include spaceStyle('.pt-','padding-top', 50);
+@include spaceStyle('.pb-','padding-bottom', 15);
+@include spaceStyle('.pb-','padding-bottom', 30);
+@include spaceStyle('.pl-','padding-left', 0);
+@include spaceStyle('.pl-','padding-left', 15);
+@include spaceStyle('.pl-','padding-left', 30);
+@include spaceStyle('.mt-','margin-top', 15);
+@include spaceStyle('.mb-','margin-bottom', 15);
+@include spaceStyle('.mb-','margin-bottom', 30);
+@include spaceStyle('.mb-','margin-bottom', 20);
+a{
+  color: $txt-nav;
+  @include animation(transition,all ease-in 200ms)
+}
+a:hover{
+  text-decoration: none;
+  color: $txt-hover;
+  @include animation(transition,all ease-out 200ms)
+}
+
