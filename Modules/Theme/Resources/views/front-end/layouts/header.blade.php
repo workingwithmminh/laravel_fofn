@@ -5,8 +5,8 @@
         </div>
         <div class="header__top__right col-sm-12 col-md-6 d-flex align-items-center justify-content-end">
             <div class="header__top__right__search">
-                <form action="#">
-                    <input type="text" name="keyword" placeholder="Tìm kiếm">
+                <form method="GET" action="{{ route('tim-kiem') }}" class="search-form">
+                    <input type="text" name="query" placeholder="Tìm kiếm...">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
             </div>
@@ -21,15 +21,18 @@
         </div>
     </div>
 </div>
-<div class="header__logo py-2 d-lg-block d-none">
+<div class="header__logo py-2">
     <div class="container">
         <div class="row">
             <div class="header__logo col-sm-12 col-md-4">
                 <img src="https://kienthuckinhte.vn/styles/website/images/logo.png?v=1" alt="" class="img-fluid">
             </div>
             <div class="col-sm-12 col-md-8">
+                <a class="sidebarBtn d-block d-xl-none">
+                    <i class="sidebar-icon fas fa-bars"></i>
+                </a>
                 <div class="header__menu">
-                    <ul class="list-inline-block clearfix">
+                    <ul class="list-inline-block clearfix d-none d-xl-block">
                         @foreach($mainMenus as $item)
                             @php($menuChild = \App\Menu::with('parent')->where('parent_id', $item->id)->get())
                             @if($item->parent_id == null)
@@ -58,7 +61,21 @@
                         @endforeach
                     </ul>
                 </div>
+                <div class="sidebar">
+                    <div class="flex-container" >
+                        <a class="sidebarBtn">
+                            <i class="sidebar-icon fas fa-times"></i>
+                        </a>
+                    </div>
+                    <ul class="group-item">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">{{ __('theme::frontend.home.home') }}</a>
+                        </li>
+
+                    </ul>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

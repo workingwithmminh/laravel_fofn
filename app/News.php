@@ -10,6 +10,11 @@ use Kyslik\ColumnSortable\Sortable;
 class News extends Model
 {
     use Sortable, SoftDeletes;
+
+    const ID_NEWS = 2;
+
+    static public $ID_NEWS = 1;
+
     /**
      * The database table used by the model.
      *

@@ -49,15 +49,16 @@ class SysMenu extends Model
 
         $arr_slug = array_collapse([$news, $categories, $pages, $promotion]);
 
-        if (in_array($slug, $arr_slug) || SysMenu::where('slug', $slug)->exists()){
-            for ($i = 1; $i <= 100; $i++){
-                $new_slug = $slug.'-'.$i;
-                if (!in_array($new_slug, $arr_slug)) break;
-            }
-            return $new_slug;
-        }else{
-            return $slug;
-        }
+//        if (in_array($slug, $arr_slug) || SysMenu::where('slug', $slug)->exists()){
+//            for ($i = 1; $i <= 100; $i++){
+//                $new_slug = $slug.'-'.$i;
+//                if (!in_array($new_slug, $arr_slug)) break;
+//            }
+//            return $new_slug;
+//        }else{
+//            return $slug;
+//        }
+        return $slug;
     }
 
     public function getListMenuToArray($menus, $menuId = null, $level = '', $result = [])

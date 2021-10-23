@@ -62,16 +62,16 @@ class FrontendController extends Controller
     public function getNewsFocus($perPage)
     {
         $newsLast = News::with('category')->where('image', '<>', '')->latest()->first();
-        return News::with('category')->where(['active' => config('settings.active'), ['id', '<>', $newsLast->id], ['image', '<>', ''], 'is_focus' => config('settings.active')])->orderBy('updated_at', 'DESC')->take($perPage)->get();
+        return News::with('category')->where(['active' => config('settings.active')])->orderBy('updated_at', 'DESC')->take($perPage)->get();
     }
 
 
     public function index()
     {   
-        $newsFocus = $this->getNewsFocus(config('settings.paginate.page8'));
-        $newsLast = News::with('category')->where('image', '<>', '')->latest()->first();
-        $partners = Partner::where('active', config('settings.active'))->orderBy('arrange', 'DESC')->take(config('settings.paginate.page8'))->get();
-        return view('theme::front-end.layouts.home', compact('newsFocus', 'partners', 'newsLast'));
+//        $news = $this->getNewsFocus(config('settings.paginate.page10'));
+        $newsHot = News::with('category')->where('category_id', News::ID_NEWS)->latest()->take(9)->get();
+        $categories = Category::with('parent')->whereNull('parent_id')->get();
+        return view('theme::front-end.layouts.home', compact('newsHot', 'categories'));
     }
 
     public function getListParents($slugParent)
@@ -80,9 +80,10 @@ class FrontendController extends Controller
         $slugCategoryParent = !empty($category) ? $category->slug : '';
         switch ($slugParent) {
             case $slugCategoryParent:
-                $categories = Category::where('parent_id', $category->id)->pluck('id')->toArray();
-                $news = News::with('category')->whereIn('category_id', $categories)->where('active', config('settings.active'))->orderBy('updated_at', 'DESC')->paginate(config('settings.paginate.page12'));
-                return view('theme::front-end.news.list-parent', compact('category', 'news'));
+//                $categoryIds = Category::where('parent_id', $category->id)->pluck('id')->toArray();
+                $categories = Category::with('parent')->where('parent_id', $category->id)->where('active', config('settings.active'))->get();
+//                $news = News::with('category')->whereIn('category_id', $categoryIds)->where('active', config('settings.active'))->orderBy('updated_at', 'DESC')->paginate(config('settings.paginate.page12'));
+                return view('theme::front-end.news.list-parent', compact('categories','category'));
             default:
                 return view("theme::front-end.404", compact('slugParent'));
         }
@@ -119,17 +120,16 @@ class FrontendController extends Controller
     {
         $slugMenu = SysMenu::where('slug', $slugParent)->pluck('slug')->toArray();
         $slugCategory = Category::where('slug', $slugParent)->pluck('slug')->toArray();
-
         switch ($slugParent) {
-            case in_array($slugParent, $slugMenu):
-                $menu = SysMenu::where(['slug' => $slugParent])->first();
-                $page = Page::where([['slug', '=', $slugDetail], ['active', '=', config('settings.active')]])->first();
-                return view('theme::front-end.pages.page', compact('page','menu'));
             case in_array($slugParent, $slugCategory):
                 $category = Category::where(['slug' => $slugParent, 'active' => config('settings.active')])->first();
                 $news = News::with('category')->where([['category_id', '=', $category->id], 'active' => config('settings.active')])->first();
                 $otherNews = News::with('category')->where([['category_id', '=', $category->id], ['active', '=', config('settings.active')], ['id', '<>', $news->id]])->orderBy('updated_at', 'DESC')->take(config('settings.paginate.page6'))->get();
                 return view("theme::front-end.news.detail", compact('slugParent', 'slugDetail', 'news', 'category', 'otherNews'));
+            case in_array($slugParent, $slugMenu):
+                $menu = SysMenu::where(['slug' => $slugParent])->first();
+                $page = Page::where([['slug', '=', $slugDetail], ['active', '=', config('settings.active')]])->first();
+                return view('theme::front-end.pages.page', compact('page','menu'));
             default:
                 return view("theme::front-end.404", compact('slugParent', 'slugDetail'));
         }
@@ -139,8 +139,14 @@ class FrontendController extends Controller
     {
         $page = Page::where([['slug', '=', $slug], ['active', '=', config('settings.active')]])->first();
         $menu = SysMenu::where([['slug', '=', $slug]])->first();
-        if($menu != null)
-            return view('theme::front-end.pages.page', compact('page','menu'));
+        if($menu != null){
+            switch ($slug){
+                case "lien-he":
+                    return view('theme::front-end.pages.contact', compact('page','menu'));
+                default:
+                    return view('theme::front-end.pages.page', compact('page','menu'));
+            }
+        }
         else
             return view("theme::front-end.404");
     }
@@ -148,10 +154,9 @@ class FrontendController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $news = new News();
-        $news = $news->with('category');
+        $news = News::with('category');
         if (!empty($query)) {
-            $news = $news->where('name', 'LIKE', "%$query%")
+            $news = $news->where('title', 'LIKE', "%$query%")
                 ->orWhere('description', 'LIKE', "%$query%")
                 ->orWhere('content', 'LIKE', "%$query%");
         }

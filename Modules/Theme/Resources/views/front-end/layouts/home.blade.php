@@ -1,144 +1,115 @@
 @extends('theme::front-end.master')
 @section('content')
-    <section class="news__hot container">
+    <section class="news__hot container mt-2">
         <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <div class="product-thumb image-responsive">
-                    <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                         data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                         class="image-responsive--lg lazyloaded"
-                         src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
+            @forelse($newsHot as $item)
+                <div class="col-sm-6 col-md-4">
+                    <div class="image-responsive">
+                        <img class="img-fluid image-responsive--lg lazyload"
+                             data-src="{{ asset($item->image) }}"
+                             alt="{{ $item->title }}">
+                    </div>
                     <div class="news__content">
-                        <a href="#" class="news__content__title">NHẬT KÝ TÌM VIỆC NHỮNG NĂM 199x!!!</a>
+                        <a class="news__title--lg" href="{{ url($item->category->slug . '/' .$item->slug) }}.html" class="news__content__title">{{ \Illuminate\Support\Str::limit($item->title, 70)}}</a>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4">
-                <div class="product-thumb image-responsive">
-                    <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                         data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                         class="image-responsive--lg lazyloaded"
-                         src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
-                    <div class="news__content">
-                        <a href="#" class="news__content__title">NHẬT KÝ TÌM VIỆC NHỮNG NĂM 199x!!!</a>
-                    </div>
+            @empty
+                <div class="col-md-12">
+                    <small>{{ trans('frontend.data_updated') }}</small>
                 </div>
-            </div>
-
-            <div class="col-sm-6 col-md-4">
-                <div class="product-thumb image-responsive">
-                    <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                         data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                         class="image-responsive--lg lazyloaded"
-                         src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
-                    <div class="news__content">
-                        <a href="#" class="news__content__title">NHẬT KÝ TÌM VIỆC NHỮNG NĂM 199x!!!</a>
-                    </div>
-                </div>
-            </div>
-
+            @endforelse
         </div>
     </section>
+
     <section class="news__market container py-4">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="news__title">
-                    <a href="https://kienthuckinhte.vn/thuong-truong.html" class="news__title--active">Thương trường</a>
-                    <a href="https://kienthuckinhte.vn/chuyen-kinh-doanh.html">Chuyện kinh doanh</a> <a
-                            href="https://kienthuckinhte.vn/thuong-hieu.html">Thương hiệu</a> <a
-                            href="https://kienthuckinhte.vn/doanh-nhan.html">Doanh nhân</a> <a
-                            href="https://kienthuckinhte.vn/startup.html">Startup</a>
-                </div>
-                <div class="row news__market--wrap">
-                    <div class="col-md-6">
-                        <div class="product-thumb image-responsive">
-                            <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                 data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                 alt="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg"
-                                 class="image-responsive--lg lazyloaded"
-                                 src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
-                        </div>
-                        <a href="#" class="news__title--lg">GIÁM ĐỊNH BẢO HIỂM - BÊN THỨ BA ĐỘC LẬP HAY “CÁNH TAY PHẢI”
-                            CỦA
-                            DOANH NGHIỆP ...</a>
+        @foreach($categories as $key => $item)
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="news__title">
+                        <a href="{{ url($item->slug) }}" class="news__title--active">{{ $item->title }}</a>
+                        @php($categories_sub = \App\Category::with('parent')->where('parent_id', $item->id)->get())
+                        @foreach($categories_sub as $itemSub)
+                            @php($news = \App\News::with('category')->where([['category_id', $itemSub->id]])->orWhere([['category_id', $itemSub->parent_id]])->get())
+                            <a href="{{ url($item->slug."/".$itemSub->slug) }}">{{ $itemSub->title }}</a>
+                        @endforeach
                     </div>
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="product-thumb image-responsive">
-                                    <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                         data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                         alt="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg"
-                                         class="image-responsive--lg lazyloaded"
-                                         src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
+                    @php($news_first = \App\News::with('category')->where('category_id', $item->id)->orWhere('category_id', $item->parent_id)->latest()->first())
+                    <div class="row news__market--wrap">
+                        @if($news->count() >0)
+                            <div class="col-md-6">
+                                @if($news_first != null)
+                                    <div class="image-responsive">
+                                        <img class="img-fluid image-responsive--lg lazyload"
+                                             data-src="{{ asset($news_first->image) }}"
+                                             alt="{{ $news_first->title }}">
+                                    </div>
+                                    <a href="{{ url($news_first->category->slug . '/' .$news_first->slug) }}.html"
+                                       class="news__title--lg">{{ $news_first->title }}</a>
+                                   <div>
+                                        <span class="news__date">
+                                            <a class="item-link"
+                                               href="{{ url(optional($news_first->category)->slug) }}">{{ optional($news_first->category)->title }}</a>
+                                            <span>-&nbsp;&nbsp;</span>
+                                            <span>{{ _("Cập nhật ").Carbon\Carbon::parse($news_first->updated_at)->format(config('settings.format.date')) }}</span>
+                                    </span>
+                                   </div>
+                                @endif
+                            </div>
+                            <div class="col-md-6">
+                                @foreach($news as $x)
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="image-responsive">
+                                                <img class="img-fluid image-responsive--lg lazyload"
+                                                     data-src="{{ asset($x->image) }}"
+                                                     alt="{{ $x->title }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <a href="{{ url($x->category->slug . '/' .$x->slug) }}.html"
+                                               class="news__title--small news__title--small--viewer">{{ $x->title }}</a>
+                                            <span class="news__date">
+                                                <span> {{ _("Cập nhật ").Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="col-md-12 text-center">
+                                <small>{{ trans('frontend.data_updated') }}</small>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                @if($key == 0)
+                    <div class="col-md-3">
+                        <div class="news__viewer">
+                            <h2 class="news__viewer__title">Xem nhiều nhất</h2>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="product-thumb image-responsive">
+                                        <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
+                                             data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
+                                             alt="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg"
+                                             class="image-responsive--lg lazyloaded"
+                                             src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <a href="#" class="news__title--small news__title--small--viewer">PHỤ HUYNH CÓ
+                                        THỂ
+                                        GỬI
+                                        YÊU CẦU HỖ
+                                        TRỢ ‘’ĐỒ DÙNG HỌC TẬP’’ CHO CON ...</a>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <a href="#" class="news__title--small">PHỤ HUYNH CÓ THỂ GỬI YÊU CẦU HỖ TRỢ ‘’ĐỒ DÙNG HỌC
-                                    TẬP’’
-                                    CHO CON ...</a>
-                                <small> Cập nhật 22 th 09, 2021</small>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="product-thumb image-responsive">
-                                    <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                         data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                         alt="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg"
-                                         class="image-responsive--lg lazyloaded"
-                                         src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <a href="#" class="news__title--small">PHỤ HUYNH CÓ THỂ GỬI YÊU CẦU HỖ TRỢ ‘’ĐỒ DÙNG HỌC
-                                    TẬP’’
-                                    CHO CON ...</a>
-                                <small> Cập nhật 22 th 09, 2021</small>
-                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
             </div>
-            <div class="col-md-3">
-                <div class="news__viewer">
-                    <h2 class="news__viewer__title">Xem nhiều nhất</h2>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="product-thumb image-responsive">
-                                <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                     data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                     alt="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg"
-                                     class="image-responsive--lg lazyloaded"
-                                     src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <a href="#" class="news__title--small news__title--small--viewer">PHỤ HUYNH CÓ THỂ GỬI YÊU CẦU HỖ
-                                TRỢ ‘’ĐỒ DÙNG HỌC TẬP’’ CHO CON ...</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="product-thumb image-responsive">
-                                <img src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                     data-src="http://asiagroup.huesoft.net/storage/images/categories/news-demo.jpg"
-                                     alt="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg"
-                                     class="image-responsive--lg lazyloaded"
-                                     src="/storage/images/89656309_109544857340126_5427112630751854592_o.jpg">
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <a href="#" class="news__title--small news__title--small--viewer">PHỤ HUYNH CÓ THỂ GỬI YÊU CẦU HỖ
-                                TRỢ ‘’ĐỒ DÙNG HỌC TẬP’’ CHO CON ...</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        @endforeach
     </section>
 @endsection
 

@@ -2,6 +2,7 @@
 
 namespace Modules\Theme\Http\Controllers;
 
+use App\Rules\Recaptcha;
 use App\Setting;
 use Illuminate\Http\Request;
 use App\Events\MailContactEvent;
@@ -37,9 +38,18 @@ class AjaxFrontendController extends Controller
     public function postContact(Request $request){
         $validator = \Validator::make($request->all(), [
             'fullname' => 'required',
-            'email' => 'required|email',
-            'message' => 'required'
-        ]);
+            'email' => 'required|email|unique:contacts,email',
+            'phone' => 'required|numeric|min:10',
+            'message' => 'required',
+            'g-recaptcha-response' => ['required', new Recaptcha()]
+        ],
+            [
+                'email.email' => 'Email không đúng định dạng',
+                'email.unique' => 'Email đã được đăng ký',
+                'phone.numeric' => 'Số điện thoại phải là số',
+                'phone.min' => 'Số điện thoại tối thiểu 10 kí tự',
+                'g-recaptcha-response.required' => 'Captcha không được để trống'
+            ]);
         if ($validator->passes()){
             $contact = new Contact();
             $contact->fullname = $request->fullname;
@@ -49,7 +59,7 @@ class AjaxFrontendController extends Controller
             $contact->message = $request->message;
             $contact->save();
             //Send mail
-            event(new MailContactEvent($contact));
+//            event(new MailContactEvent($contact));
             return response()->json([
                 'success' => 'ok'
             ]);

@@ -34,6 +34,8 @@
          ]
         }
 
+
+
     </script>
 @endsection
 @section('breadcrumb')
@@ -43,45 +45,101 @@
     </div>
 @endsection
 @section('content')
-    <div class="article article-list container">
-        <div class="row">
-            @if($news->count() > 0)
-                <div class="col-12 col-lg-9">
-                    <div class="row news-items">
-                        @foreach($news as $item)
-                            <div class="col-12 col-sm-6 col-md-4 item mb-15">
-                                <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
-                                   class="image-responsive image-responsive--md">
-                                    <img class="image-responsive--lg lazyload" data-src="{{ asset($item->image) }}"
-                                         class="card-img-top" alt="{{ $item->title }}">
-                                </a>
-                                <div class="item-body">
-                                    <h3 class="item-title">
+    @if($categories->count() == 0)
+        <div class="article article-list container">
+            <div class="row">
+                @php($news = \App\News::with('category')->where([['category_id', $category->id], ['active', config('settings.active')]])->orderBy('updated_at', 'DESC')->paginate(config('settings.paginate.page12')))
+                @if($news->count() > 0)
+                    <div class="col-12 col-lg-9">
+                        <div class="row news-items">
+                            @foreach($news as $item)
+                                <div class="col-12 col-md-6 mb-15">
+                                    <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
+                                       class="image-responsive">
+                                        <img class="image-responsive--lg img-fluid lazyload"
+                                             data-src="{{ asset($item->image) }}"
+                                             alt="{{ $item->title }}">
+                                    </a>
+                                    <div class="item-body">
+                                        <h5 class="news__title--lg">
+                                            <a href="{{ url($item->slug) }}.html"
+                                               class="news__title--lg">{{ $item->title }}</a>
+                                        </h5>
+                                        <span class="news__date">
+                                            <a class="item-link"
+                                               href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html">{{ optional($item->category)->title }}</a>
+                                            <span>-&nbsp;&nbsp;</span>
+                                            <span>{{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}</span>
+                                        </span>
+                                        @empty(!$item->description)
+                                            <p class="news__description">{{ \Illuminate\Support\Str::limit($item->description, 70) }}</p>
+                                        @endempty
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="pagination-fixed d-flex justify-content-center">
+                            {!! $news->appends(\Request::except('page'))->render() !!}
+                        </div>
+                    </div>
+                    @include('theme::front-end.news.sidebar')
+                @else
+                    <div class="col-12 col-lg-12 text-center">
+                        <small>{{ trans('frontend.data_updated') }}</small>
+                    </div>
+                @endif
+            </div>
+        </div>
+    @else
+        @foreach($categories as $item)
+            <div class="article article-list container">
+                <div class="news__title">
+                    <a href="{{ url($item->slug) }}" class="news__title--active">{{ $item->title }}</a>
+                </div>
+                <div class="row">
+                    @php($news = \App\News::with('category')->where([['category_id', $item->id], ['active', config('settings.active')]])->orderBy('updated_at', 'DESC')->paginate(config('settings.paginate.page12')))
+                    @if($news->count() > 0)
+                        <div class="col-12 col-lg-9">
+                            <div class="row news-items">
+                                @foreach($news as $itemX)
+                                    <div class="col-12 col-md-6 mb-15">
+                                        <a href="{{ url(optional($itemX->category)->slug . '/' .$itemX->slug) }}.html"
+                                           class="image-responsive">
+                                            <img class="image-responsive--lg img-fluid lazyload"
+                                                 data-src="{{ asset($itemX->image) }}"
+                                                 alt="{{ $itemX->title }}">
+                                        </a>
+                                        <div class="item-body">
+                                            <h5 class="news__title--lg">
+                                                <a href="{{ url($itemX->slug) }}.html"
+                                                   class="news__title--lg">{{ $itemX->title }}</a>
+                                            </h5>
+                                            <span class="news__date">
                                         <a class="item-link"
                                            href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html">{{ $item->title }}</a>
-                                    </h3>
-                                    <span class="item-postdate">
-                                        <i class="fas fa-calendar-alt"></i> {{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}
+                                        <span>-&nbsp;&nbsp;</span>
+                                        <span>{{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}</span>
                                     </span>
-                                    @empty(!$item->description)
-                                        <p class="item-text">{{ \Illuminate\Support\Str::limit($item->description, 70) }}</p>
-                                    @endempty
-                                </div>
-
+                                            @empty(!$itemX->description)
+                                                <p class="news__description">{{ \Illuminate\Support\Str::limit($itemX->description, 70) }}</p>
+                                            @endempty
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
-                    </div>
-                    <div class="pagination-fixed d-flex justify-content-center">
-                        {!! $news->appends(\Request::except('page'))->render() !!}
-                    </div>
+                            <div class="pagination-fixed d-flex justify-content-center">
+                                {!! $news->appends(\Request::except('page'))->render() !!}
+                            </div>
+                        </div>
+                        @include('theme::front-end.news.sidebar')
+                    @else
+                        <div class="col-12 col-lg-12 text-center">
+                            <small>{{ trans('frontend.data_updated') }}</small>
+                        </div>
+                    @endif
                 </div>
-                @include('theme::front-end.news.sidebar')
-            @else
-                <div class="col-12 col-lg-12 text-center">
-                    {{ trans('frontend.data_updated') }}
-                </div>
-            @endif
+            </div>
+        @endforeach
 
-        </div>
-    </div>
+    @endif
 @endsection

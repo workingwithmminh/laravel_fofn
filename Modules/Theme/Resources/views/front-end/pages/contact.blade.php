@@ -1,56 +1,116 @@
-<div class="row">
-    @section('slider')
-        <img src="{{ asset('images-theme/footer2/contact.png') }}" width="100%" alt="contact">
-    @endsection
+@extends('theme::front-end.master')
+@section('title')
+    <title>{{ $page->name . " | " . $settings['meta_title'] }}</title>
+    <meta name="description"
+          content="{{ !empty($page->description) ? \Illuminate\Support\Str::limit($page->description, 200) : $settings['meta_description'] }}"/>
+    <meta name="keywords" content="{{ !empty($page->keywords) ? $page->keywords : $settings['meta_keyword'] }}"/>
+@endsection
+@section('schema')
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@id": "{{ url('/')}}",
+                    "name": "{{ trans('theme::frontend.home.home') }}"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@id": "{{ Request::fullUrl() }}",
+                    "name": "{{ $page->name }}"
+                }
+            }
+        ]
+    }
 
-    <div class="col-md-12 my-5">
-        <div class="row">
-            <div class="col-md-4 text-center">
-                <img class="img-svg" src="{{ asset('images-theme/footer2/icon-dchi.svg') }}" width="40px" height="60px" alt="Địa chỉ">
-                <p class="mt-2" style="color: #009f3c;">&nbsp;{{ $settings['company_address'] }}</p>
-            </div>
-            <div class="col-md-4 text-center">
-                <img class="img-svg" src="{{ asset('images-theme/footer2/phone-icon.svg') }}" width="60px" alt="Điện thoại" style="filter: invert(.5) sepia(0.5) saturate(5) hue-rotate(95deg); height: 60px !important;">
-                <p class="mt-2" style="color: #009f3c;">{{ $settings['company_phone'] }}</p>
-            </div>
-            <div class="col-md-4 text-center">
-                <img class="img-svg" src="{{ asset('images-theme/footer2/icon-mail.svg') }}" width="105px" alt="Email" height="60px">
-                <p class="mt-2" style="color: #009f3c;">&nbsp;{{ $settings['company_email'] }}</p>
+
+
+    </script>
+@endsection
+@section('content')
+    <div class="container">
+        <div class="bread__crumb clearfix">
+            <a href="{{ url('/')}}"><i class="fa fa-home"></i></a> / <strong> {{ $menu->title }}</strong>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <div class="text-center">
+                    <h5 class="contact__title">{{ _("Liên hệ") }}</h5>
+                    <p>Điện thoại: <strong>0365.635.979</strong></p>
+                    <p>Email: <strong>kienthuckinhte@ekcorp.vn</strong></p>
+                    <p>Địa chỉ: <strong>Tầng 10, Tòa nhà Pax Sky, 51 Nguyễn Cư Trinh, Q.1, TP.HCM</strong></p>
+                </div>
+                {!! Form::open(['method' => 'POST', 'url' => '', 'role' => 'contact', 'id' => 'contact'])  !!}
+                <div class="form__contact">
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            {!! Form::text('fullname', null, ['class' => 'form-control input-sm', 'placeholder' => "Họ và tên (*)", 'required'=>true]) !!}
+                            {!! $errors->first('fullname', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Form::text('address', null, ['class' => 'form-control input-sm', 'placeholder' => "Địa chỉ (*)", 'required'=>true]) !!}
+                            {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-6">
+                            {!! Form::text('phone', null, ['class' => 'form-control input-sm', 'placeholder' => "Số điện thoại (*)", 'required'=>true]) !!}
+                            {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! Form::email('email', null, ['class' => 'form-control input-sm', 'placeholder' => "Email (*)", 'required'=>true]) !!}
+                            {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            {!! Form::textarea('message', null, ['class' => 'form-control input-sm', 'placeholder' => "Yêu cầu của bạn (*)", 'required'=>true, 'rows' => 4]) !!}
+                            {!! $errors->first('message', '<p class="help-block">:message</p>') !!}
+                        </div>
+                    </div>
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    <div class="g-recaptcha" id="feedback-recaptcha"
+                         data-sitekey="6LcSa-wcAAAAAIO9Px9-Ni_SMmMAcyKhVjjzN9kM"></div>
+
+                    <div class="mt-2 d-flex justify-content-center">
+                        {!! Form::submit(__('message.send'), ['class' => 'btn btn-md btn-success']) !!}
+                    </div>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
-
-    <div class="col-lg-6 order-lg-2 order-md-1">
-        <h5 class="text-uppercasemt-15">{{ trans('frontend.send_request') }}</h5>
-        {!! Form::open(['method' => 'POST', 'url' => '', 'role' => 'contact', 'id' => 'contact'])  !!}
-        <div class="form-success text-center" style="display: none">
-            {{ trans('frontend.success_contact') }}
-        </div>
-        <div class="contact-form form-contact">
-            <div class="form-group">
-                {!! Form::text('fullname', null, ['required' => 'required', 'placeholder' => 'Họ & tên']) !!}
-                <span class="highlight"></span><span class="bar"></span>
-            </div>
-            <div class="form-group">
-                {!! Form::email('email', null, [ 'required' => 'required', 'placeholder' => 'Email']) !!}
-                <span class="highlight"></span><span class="bar"></span>
-            </div>
-            <div class="form-group">
-                {!! Form::text('phone', null, [ 'placeholder' => 'Điện thoại']) !!}
-                <span class="highlight"></span><span class="bar"></span>
-            </div>
-            <div class="form-group">
-                {!! Form::text('address', null, [ 'placeholder' => 'Chủ đề']) !!}
-                <span class="highlight"></span><span class="bar"></span>
-            </div>
-            <div class="form-group">
-                {!! Form::textarea('message', null, ['class' => 'highlight', 'required' => 'required', 'rows' => 3, 'placeholder' => 'Nội dung']) !!}
-                <span class="highlight"></span><span class="bar"></span>
-            </div>
-            <div class="d-flex justify-content-center mt-2">
-                {!! Form::submit(__('message.send'), ['class' => 'btn btn-contact ']) !!}
-            </div>
-        </div>
-        {!! Form::close() !!}
-    </div>
-</div>
+@endsection
+@section('script')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#contact').submit(function(e){
+                e.preventDefault();
+                axios.post('{{ url('/lien-he/ajax') }}', $(this).serialize())
+                    .then(function (response) {
+                        const data = response.data;
+                        if (data.success == "ok"){
+                            $('#contact')[0].reset();
+                            toastr.success('Thêm liên hệ thành công !');
+                        }else{
+                            let err = data.errors;
+                            let mess = err.join("<br/>");
+                            toastr.error(mess);
+                        }
+                    })
+                    .catch(function (error){
+                        alert("{{ __('frontend.error') }}");
+                    });
+            });
+        })
+    </script>
+@endsection

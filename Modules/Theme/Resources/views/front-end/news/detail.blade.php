@@ -41,20 +41,15 @@
 
 @section('content')
 <div class="row">
-    <div class="article article-detail">
+    <div class="container">
         <div class="col-12">
-            <div class="breadcrumb breadcrumb-fixed justify-content-center">
-                <a href="{{ url('/')}}">{{ trans('theme::frontend.home') }}</a>
-                <span class="mr_lr">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
-                <a href="{{ url($category->slug)}}">{{ $category->title }}</a>
-                <span class="mr_lr">&nbsp;<i class="fa fa-angle-right"></i>&nbsp;</span>
-                {{ $news->title }}
+            <div class="bread__crumb clearfix container">
+                <a href="{{ url('/')}}"><i class="fa fa-home"></i></a> /
+                <a href="{{ url($category->slug)}}"><strong>{{ $category->title }}</strong></a> /
+                <strong>{{ $news->title }}</strong>
             </div>
-            <div class="pl-30">
+            <div>
                 <p class="fb-like" data-href="{{ Request::fullUrl() }}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></p>
-                <p class="article-postdate">
-                    <i class="fas fa-calendar-alt"></i> {{ Carbon\Carbon::parse($news->updated_at)->format(config('settings.format.date')) }}
-                </p>
                 @if(!empty($news->description))
                 <p class="article-summary">
                     <i>{!! $news->description !!}</i>
@@ -66,12 +61,11 @@
                 </div>
             </div>
         </div>
-        @include('theme::front-end.news.sidebar')
     </div>
-    <div class="container">
-        @if($otherNews->count() > 0)
-        @include('theme::front-end.news.other')
-        @endif
-    </div>
+{{--    <div class="container">--}}
+{{--        @if($otherNews->count() > 0)--}}
+{{--        @include('theme::front-end.news.other')--}}
+{{--        @endif--}}
+{{--    </div>--}}
 </div>
 @endsection
