@@ -42,9 +42,9 @@
             <div class="col-12 col-md-8">
                 <div class="text-center">
                     <h5 class="contact__title">{{ _("Liên hệ") }}</h5>
-                    <p>Điện thoại: <strong>0365.635.979</strong></p>
-                    <p>Email: <strong>kienthuckinhte@ekcorp.vn</strong></p>
-                    <p>Địa chỉ: <strong>Tầng 10, Tòa nhà Pax Sky, 51 Nguyễn Cư Trinh, Q.1, TP.HCM</strong></p>
+                    <p>Điện thoại: <strong>{{ $settings['company_phone'] }}</strong></p>
+                    <p>Email: <strong>{{ $settings['company_email'] }}</strong></p>
+                    <p>Địa chỉ: <strong>{{ $settings['company_address'] }}</strong></p>
                 </div>
                 {!! Form::open(['method' => 'POST', 'url' => '', 'role' => 'contact', 'id' => 'contact'])  !!}
                 <div class="form__contact">

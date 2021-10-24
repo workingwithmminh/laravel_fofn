@@ -74,7 +74,7 @@
 @else
 @section('content')
     <div class="page__detail container">
-        <div class="bread__crumb clearfix">
+              <div class="bread__crumb clearfix">
             <a href="{{ url('/')}}"><i class="fa fa-home"></i></a> / <strong> {{ $menu->title }}</strong>
         </div>
 

@@ -55,6 +55,7 @@
 </head>
 
 <body>
+<div id='overlay'></div>
 {!! str_replace('<br />','',$settings['fanpage_facebook_body']) !!}
 @section('schema')
     <script type="application/ld+json">
@@ -93,8 +94,23 @@
 @include('theme::front-end.layouts.footer')
 
 <script src="{{ url (mix('/js/web.js')) }}"></script>
+<link rel="stylesheet" href="{{ asset("plugins/pace/pace-theme-flash.min.css") }}">
+<script type="text/javascript" src="{{ asset("plugins/pace/pace.min.js") }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var height = $('header').height();
+        $(window).scroll(function(){
+            if($(window).scrollTop() > height && $(window).width() > 991){
+                $('.header__logo').addClass('fixed');
+                $('body').css({'padding-top': $('.header__menu').height()})
+            }else{
+                $('.header__logo').removeClass('fixed');
+                $('body').css({'padding-top': 0})
+            }
+        });
+    });
+</script>
 @yield('script')
-
 
 </body>
 
