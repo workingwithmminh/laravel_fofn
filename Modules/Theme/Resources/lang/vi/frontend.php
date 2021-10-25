@@ -22,7 +22,7 @@ return [
     ],
     'intro' => 'Giới thiệu về',
     'unit' => '₫',
-	'other_news' => 'Tin liên quan',
+	'other_news' => 'Bài viết cùng chuyên mục',
     'error_page' => [
         'not_found' => 'Không tìm thấy',
         'sorry_page' => 'Xin lỗi, không tìm thấy trang'

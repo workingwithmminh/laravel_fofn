@@ -67,7 +67,20 @@ class CategoryController extends Controller
             if ($request->hasFile('avatar')) {
                 $requestData['avatar'] = Category::uploadAndResize($request->file('avatar'));
             }
-            Category::create($requestData);
+            $category = Category::create($requestData);
+
+            //Multifile upload
+            if (!empty($requestData['images'])){
+                if (count($requestData["images"]) > 0) {
+                    foreach ($requestData['images'] as $file) {
+                        $image_galleries = Category::uploadAndResize($file);
+                        $category->gallery()->create([
+                            'image' => $image_galleries,
+                            'category_id' => $category->id,
+                        ]);
+                    }
+                }
+            }
         });
 
         toastr()->success(__('theme::categories.created_success'));
@@ -124,6 +137,21 @@ class CategoryController extends Controller
             if($request->hasFile('avatar')) {
                 \File::delete($category->image);
                 $requestData['avatar'] = Category::uploadAndResize($request->file('avatar'));
+            }
+            //Multifile upload
+            if (!empty($requestData['images'])){
+                if (count($requestData["images"]) > 0) {
+                    foreach ($requestData['images'] as $file) {
+                        if(!starts_with($file, "storage") && !starts_with($file, "[object File]")){
+                            $image_galleries = Category::uploadAndResize($file);
+                            $category->gallery()->create([
+                                'image' => $image_galleries,
+                                'category_id' => $category->id
+                            ]);
+                        }
+                    }
+
+                }
             }
             $category->update($requestData);
         });

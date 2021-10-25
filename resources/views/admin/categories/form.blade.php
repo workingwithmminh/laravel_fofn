@@ -77,6 +77,40 @@
                 {!! Form::textarea('description', null, ['class' => 'form-control input-sm ','rows' => 5]) !!}
             </td>
         </tr>
+        <tr class="row {{ $errors->has('images') ? 'has-error' : ''}}">
+            <td class="col-md-4 col-lg-3">
+                {!! Form::label('images', trans('theme::products.gallery'), ['class' => 'control-label']) !!}
+            </td>
+            <td class="col-md-8 col-lg-9">
+                <div>
+                    <div class="input-group inputfile-wrap ">
+                        <input type="text" class="form-control input-sm" readonly>
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <i class=" fa fa-upload"></i>
+                                {{ __('message.upload') }}
+                            </button>
+                            {!! Form::file('images[]', array_merge(['id'=>'image_gallery', 'class' => 'form-control input-sm', "accept" => "image/*", 'multiple'=> 'multiple'])) !!}
+                        </div>
+                        {!! $errors->first('images', '<p class="help-block">:message</p>') !!}
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="previews" class="galleries">
+                        @isset($category->gallery)
+                            @if(!empty($category->gallery))
+                                @foreach(\App\GalleryCategory::where('category_id', $category->id)->get() as $file)
+                                    <div class="gallery imgprev-wrap imgprev-wrap-gallery" style="display:block">
+                                        <input type="hidden" name="images[]" value="{{ $file->image }}">
+                                        <img class="img-preview" src="{{ asset($file->image) }}" alt="">
+                                        <i class="fa fa-trash text-danger" onclick="return deleteFile(this)"></i>
+                                    </div>
+                                @endforeach
+                            @endif
+                        @endisset
+                    </div>
+                </div>
+            </td>
+        </tr>
         <tr class="row {{ $errors->has('active') ? 'has-error' : ''}}">
             <td class="col-md-4 col-lg-3">
                 {!! Form::label('active', trans('theme::news.active'), ['class' => 'control-label']) !!}
@@ -94,6 +128,8 @@
 @section('scripts-footer')
 <script type="text/javascript" src="{{ asset('plugins/ckeditor_full/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/ckfinder/ckfinder.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/dropzone/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/dropzone/dropzone.min.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         CKEDITOR.replace('description');
@@ -128,6 +164,57 @@
                 $('.inputfile-wrap').find('input[type=text]').val('');
             }
         })
+    });
+</script>
+<script type="text/javascript">
+    var PreviewMultipleImage = function (input) {
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (var i = 0; i < filesAmount; i++) {
+                var html = "";
+                html += '<div class="gallery imgprev-wrap imgprev-wrap-gallery" style="display:block">'
+                    + '<input type="hidden" name="images[]" class="form-control input-sm" readonly value="' + event.target.files[i] + '" />'
+                    + '<img class="img-preview" src="' + URL.createObjectURL(event.target.files[i]) + '"/>'
+                    + '<i class="fa fa-trash text-danger" onclick="return deleteFile(this)"></i>'
+                    + '</div>';
+                $('#previews').append(html);
+            }
+        }
+    };
+    $('#image_gallery').on('change', function () {
+        PreviewMultipleImage(this);
+    });
+</script>
+<script>
+    function deleteFile(ob) {
+        if (confirm('{{ __('Bạn có muốn xóa file này không?') }}')) {
+            $(ob).closest('.imgprev-wrap').remove();
+        }
+        return false;
+    }
+
+    $(function () {
+        $("#previews,#files-list").sortable({
+            items: '.gallery',
+            cursor: 'move',
+            opacity: 0.5,
+            containment: '#previews,#files-list',
+            distance: 20,
+            tolerance: 'pointer',
+        });
+        $("#previews,#files-list").disableSelection();
+    });
+
+    $(function () {
+        $("#previews").sortable({
+            items: '.gallery',
+            cursor: 'move',
+            opacity: 0.5,
+            containment: '#previews,#multi-gallery',
+            distance: 20,
+            tolerance: 'pointer',
+        });
+        $("#previews").disableSelection();
     });
 </script>
 @endsection

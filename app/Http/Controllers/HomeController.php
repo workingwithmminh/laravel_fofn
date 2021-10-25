@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Agent;
-use Modules\Booking\Entities\Booking;
-use Modules\Booking\Entities\Customer;
+use App\Category;
 use App\User;
-use Illuminate\Http\Request;
 use App\News;
-use Modules\Product\Entities\Product;
 
 class HomeController extends Controller
 {
@@ -29,10 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::count();
+        $categories = Category::count();
         $news = News::count();
-        $usersCount = User::count();
-        $orders = Booking::count();
-        return view('adminlte::home', compact('news', 'products', 'usersCount', 'orders'));
+        $users = User::count();
+        return view('adminlte::home', compact('news', 'categories', 'users'));
     }
 }

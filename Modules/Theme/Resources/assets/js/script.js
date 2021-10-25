@@ -1,4 +1,15 @@
 $(document).ready(function() {
+    let height = $('header').height();
+    $(window).scroll(function(){
+        if($(window).scrollTop() > height && $(window).width() > 991){
+            $('.header__logo').addClass('fixed');
+            $('body').css({'padding-top': $('.header__menu').height()})
+        }else{
+            $('.header__logo').removeClass('fixed');
+            $('body').css({'padding-top': 0})
+        }
+    });
+
     $(".sidebar .dropdown-btn").click(function() {
         $(".dropdown-btn")
             .not($(this))

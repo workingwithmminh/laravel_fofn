@@ -77,14 +77,11 @@
                                 </a>
                                 <div class="item-body">
                                     <h5 class="news__title--lg">
-                                        <a href="{{ url($item->slug) }}.html"
+                                        <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                                            class="news__title--lg">{{ $item->title }}</a>
                                     </h5>
                                     <span class="news__date">
-                                        <a class="item-link"
-                                           href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html">{{ optional($item->category)->title }}</a>
-                                        <span>-&nbsp;&nbsp;</span>
-                                        <span>{{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}</span>
+                                        {{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}
                                     </span>
                                     @empty(!$item->description)
                                         <p class="news__description">{{ \Illuminate\Support\Str::limit($item->description, 70) }}</p>
@@ -93,7 +90,7 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="pagination-fixed d-flex justify-content-center">
+                    <div class="pagination-fixed d-flex justify-content-start">
                         {!! $news->appends(\Request::except('page'))->render() !!}
                     </div>
                 </div>

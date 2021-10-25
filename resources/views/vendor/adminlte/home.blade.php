@@ -14,12 +14,12 @@
 @endsection
 @section('main-content')
 	<div class="row">
-		@isset($usersCount)
+		@isset($users)
 			<div class="col-lg-3 col-xs-6">
 				<!-- small box -->
 				<div class="small-box bg-red">
 					<div class="inner">
-						<h3>{{ $usersCount }}</h3>
+						<h3>{{ $users }}</h3>
 
 						<p>{{ __('message.user.users') }}</p>
 					</div>
@@ -30,19 +30,19 @@
 				</div>
 			</div>
 		@endisset
-		@isset($products)
+		@isset($categories)
 			<div class="col-lg-3 col-xs-6">
 				<!-- small box -->
 				<div class="small-box bg-green">
 					<div class="inner">
-						<h3>{{ $products }}</h3>
+						<h3>{{ $categories }}</h3>
 
-						<p>{{ __('product::products.product') }}</p>
+						<p>{{ __('Danh mục') }}</p>
 					</div>
 					<div class="icon">
 						<i class="fab fa-product-hunt"></i>
 					</div>
-					<a href="{{ url('/admin/products') }}" class="small-box-footer">{{ __('message.more_info') }} <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="{{ url('/admin/categories') }}" class="small-box-footer">{{ __('message.more_info') }} <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		@endisset
@@ -62,22 +62,6 @@
 				</div>
 			</div>
 		@endisset
-			@isset($orders)
-				<div class="col-lg-3 col-xs-6">
-					<!-- small box -->
-					<div class="small-box bg-yellow">
-						<div class="inner">
-							<h3>{{ $orders }}</h3>
-							<p>
-								{{ __('booking::bookings.booking') }}
-							</p>
-						</div>
-						<div class="icon">
-							<i class="fa fa-cart-arrow-down"></i>
-						</div>
-						<a href="{{ url('/bookings/product') }}" class="small-box-footer">{{ __('message.more_info') }} <i class="fa fa-arrow-circle-right"></i></a>
-					</div>
-				</div>
-			@endisset
+
 	</div>
 @endsection

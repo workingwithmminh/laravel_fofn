@@ -34,16 +34,16 @@ class FrontendController extends Controller
         $mainMenus = $this->menu(1);
         $bottomMenus = $this->menu(2);
         $settings = Setting::allConfigsKeyValue();
-        $sliders = Slider::where('active', config('settings.active'))->orderBy('arrange', 'ASC')->take(5)->get();
-        $newsFocusSidebar = $this->getNewsFocus(config('settings.paginate.page5'));
+//        $sliders = Slider::where('active', config('settings.active'))->orderBy('arrange', 'ASC')->take(5)->get();
+//        $newsFocusSidebar = $this->getNewsFocus(config('settings.paginate.page5'));
+        $news_viewer = News::with('category')->orderByDesc('view')->take(5)->get();
         $pages = Page::all();
         \View::share([
             'mainMenus' => $mainMenus,
             'bottomMenus' => $bottomMenus,
             'settings' => $settings,
             'keywords' => $this->getKeyword(),
-            'sliders' => $sliders,
-            'newsFocusSidebar' => $newsFocusSidebar,
+            'news_viewer' => $news_viewer,
             'pages' => $pages
         ]);
     }
@@ -124,7 +124,9 @@ class FrontendController extends Controller
             case in_array($slugParent, $slugCategory):
                 $category = Category::where(['slug' => $slugParent, 'active' => config('settings.active')])->first();
                 $news = News::with('category')->where([['category_id', '=', $category->id], 'active' => config('settings.active')])->first();
-                $otherNews = News::with('category')->where([['category_id', '=', $category->id], ['active', '=', config('settings.active')], ['id', '<>', $news->id]])->orderBy('updated_at', 'DESC')->take(config('settings.paginate.page6'))->get();
+                //Increment view
+                News::find($news->id)->increment('view');
+                $otherNews = News::with('category')->where([['category_id', '=', $category->id], ['active', '=', config('settings.active')], ['id', '<>', $news->id]])->orderBy('updated_at', 'DESC')->take(3)->get();
                 return view("theme::front-end.news.detail", compact('slugParent', 'slugDetail', 'news', 'category', 'otherNews'));
             case in_array($slugParent, $slugMenu):
                 $menu = SysMenu::where(['slug' => $slugParent])->first();

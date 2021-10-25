@@ -37,12 +37,32 @@ body{
 @include spaceStyle('.mb-','margin-bottom', 30);
 @include spaceStyle('.mb-','margin-bottom', 20);
 a{
-  color: $txt-nav;
+  color: $green;
   @include animation(transition,all ease-in 200ms)
 }
 a:hover{
   text-decoration: none;
-  color: $txt-hover;
+  color: $green;
   @include animation(transition,all ease-out 200ms)
+}
+.lazyload {
+  opacity: 0;
+}
+.blur-up {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+  transition: filter 400ms, -webkit-filter 400ms;
+}
+.blur-up.lazyloaded {
+  -webkit-filter: blur(0);
+  filter: blur(0);
+}
+.form-control{
+  box-shadow: none !important;
+}
+.list-inline-block {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 

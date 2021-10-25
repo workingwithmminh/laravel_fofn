@@ -36,7 +36,7 @@
               content="{{ !empty($settings['meta_title']) ? $settings['meta_title'] : trans('frontend.title') }}"/>
         <meta property="og:description"
               content="{{ !empty($settings['meta_description']) ? $settings['meta_description'] : trans('frontend.description') }}"/>
-        <meta property="og:image" content="{{ asset(Storage::url($settings['company_logo'])) }}"/>
+        <meta property="og:image" content="{{ asset($settings['company_logo']) }}"/>
         <meta property="og:image:type" content="image/jpeg"/>
         <meta property="og:image:width" content="600"/>
         <meta property="og:image:height" content="315"/>
@@ -48,7 +48,6 @@
     <link rel="preconnect" href="//fonts.googleapis.com">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}"/>
     <link rel="canonical" href="{{ Request::fullUrl() }}"/>
-    <link href="{{ url('css/style.css') }}" rel="stylesheet"/>
     <link href="{{ url(mix('/css/web.css')) }}" rel="stylesheet"/>
     @yield('style')
     {!! str_replace('<br />','',$settings['google_analytics']) !!}
@@ -56,7 +55,6 @@
 
 <body>
 <div id='overlay'></div>
-{!! str_replace('<br />','',$settings['fanpage_facebook_body']) !!}
 @section('schema')
     <script type="application/ld+json">
         {
@@ -81,9 +79,6 @@
             }
         }
 
-
-
-
     </script>
 @show
 @include('theme::front-end.layouts.header')
@@ -94,22 +89,6 @@
 @include('theme::front-end.layouts.footer')
 
 <script src="{{ url (mix('/js/web.js')) }}"></script>
-<link rel="stylesheet" href="{{ asset("plugins/pace/pace-theme-flash.min.css") }}">
-<script type="text/javascript" src="{{ asset("plugins/pace/pace.min.js") }}"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        var height = $('header').height();
-        $(window).scroll(function(){
-            if($(window).scrollTop() > height && $(window).width() > 991){
-                $('.header__logo').addClass('fixed');
-                $('body').css({'padding-top': $('.header__menu').height()})
-            }else{
-                $('.header__logo').removeClass('fixed');
-                $('body').css({'padding-top': 0})
-            }
-        });
-    });
-</script>
 @yield('script')
 
 </body>

@@ -64,12 +64,12 @@
                 </div>
             </td>
         </tr>
-        <tr class="row {{ $errors->has('keywords') ? 'has-error' : ''}}">
+        <tr class="row {{ $errors->has('description') ? 'has-error' : ''}}">
             <td class="col-md-4 col-lg-3">
-                {!! Form::label('keywords', trans('theme::news.keywords'), ['class' => 'control-label']) !!}
+                {!! Form::label('description', trans('theme::news.meta_description'), ['class' => 'control-label']) !!}
             </td>
             <td class="col-md-8 col-lg-9">
-                {!! Form::text('keywords', null, ['class' => 'form-control input-sm', 'required' => 'required']) !!}
+                {!! Form::textarea('description', null, ['class' => 'form-control input-sm ','rows' => 5]) !!}
             </td>
         </tr>
         <tr class="row {{ $errors->has('content') ? 'has-error' : ''}}">

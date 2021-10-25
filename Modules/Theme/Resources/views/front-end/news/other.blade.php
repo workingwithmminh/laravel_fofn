@@ -1,15 +1,25 @@
-<div class="article-other">
-    <h4 class="other-title text-center text-uppercase">{{ trans('theme::frontend.other_news') }}</h4>
-    <div class="news-home news-other news-items owl-carousel">
+<div class="news__other">
+    <h5 class="contact__title news__other--title text-left text-uppercase">{{ trans('theme::frontend.other_news') }}</h5>
+    <div class="row">
         @foreach($otherNews as $item)
-            <div class="item">
-                <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html" class="lazyload">
-                    <img class="owl-lazy" data-src="{{ asset($item->image) }}" class="card-img-top" alt="{{ $item->title }}">
+            <div class="col-12 col-lg-4">
+                <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
+                   class="image-responsive">
+                    <img class="image-responsive--lg img-fluid lazyload"
+                         data-src="{{ asset($item->image) }}"
+                         alt="{{ $item->title }}">
                 </a>
                 <div class="item-body">
-                    <h3 class="item-title">
-                        <a class="item-link" href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html">{{ $item->title }}</a>
-                    </h3>
+                    <h5 class="news__title--lg">
+                        <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
+                           class="news__title--lg">{{ $item->title }}</a>
+                    </h5>
+                    <span class="news__date">
+                                        {{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}
+                                    </span>
+                    @empty(!$item->description)
+                        <p class="news__description">{{ \Illuminate\Support\Str::limit($item->description, 70) }}</p>
+                    @endempty
                 </div>
             </div>
         @endforeach

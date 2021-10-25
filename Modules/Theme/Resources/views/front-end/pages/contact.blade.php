@@ -88,9 +88,9 @@
     </div>
 @endsection
 @section('script')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+    <script type="text/javascript" src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/axios.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('#contact').submit(function(e){

@@ -1,12 +1,13 @@
 @extends('theme::front-end.master')
 @section('title')
-<title>{{ $news->title }}</title>
-<meta name="description" content="{{ !empty($news->description) ? \Illuminate\Support\Str::limit($news->description, 200) : $settings['meta_description'] }}" />
-<meta name="keywords" content="{{ !empty($news->title) ? $news->title : $settings['meta_keyword'] }}" />
+    <title>{{ $news->title }}</title>
+    <meta name="description"
+          content="{{ !empty($news->description) ? \Illuminate\Support\Str::limit($news->description, 200) : $settings['meta_description'] }}"/>
+    <meta name="keywords" content="{{ !empty($news->title) ? $news->title : $settings['meta_keyword'] }}"/>
 @endsection
 
 @section('schema')
-<script type="application/ld+json">
+    <script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BreadcrumbList",
@@ -36,36 +37,38 @@
             }
         ]
     }
-</script>
+
+    </script>
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="container">
-        <div class="col-12">
-            <div class="bread__crumb clearfix container">
-                <a href="{{ url('/')}}"><i class="fa fa-home"></i></a> /
-                <a href="{{ url($category->slug)}}"><strong>{{ $category->title }}</strong></a> /
-                <strong>{{ $news->title }}</strong>
-            </div>
-            <div>
-                <p class="fb-like" data-href="{{ Request::fullUrl() }}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></p>
-                @if(!empty($news->description))
-                <p class="article-summary">
-                    <i>{!! $news->description !!}</i>
-                </p>
-                @endif
-                <div class="article-content">
-                    {!! $news->content !!}
-                    <div class="fb-comments" data-href="{{ Request::fullUrl() }}" data-width="100%" data-numposts="5"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-{{--    <div class="container">--}}
-{{--        @if($otherNews->count() > 0)--}}
-{{--        @include('theme::front-end.news.other')--}}
-{{--        @endif--}}
-{{--    </div>--}}
-</div>
+   <div class="container mt-4">
+       <div class="row">
+           <div class="col-12 col-lg-9">
+               <h5 class="news__title--lg text-uppercase">{{ $news->title }}</h5>
+               <div class="news__detail--title">
+                   <a class="item-link" href="{{ url(optional($news->category)->slug) }}">{{ optional($news->category)->title }}</a>
+                   <span>
+                        &nbsp;<i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;{{ Carbon\Carbon::parse($news->updated_at)->format(config('settings.format.date')) }}
+                    </span>
+                   <span>&nbsp;<i class="fa fa-eye"></i>&nbsp;{{ $news->view ._(" lượt xem") }}</span>
+               </div>
+               <div>
+                   @if(!empty($news->description))
+                       <p class="article-summary">
+                           <i>{!! $news->description !!}</i>
+                       </p>
+                   @endif
+                   <div class="article-content">
+                       {!! $news->content !!}
+                   </div>
+               </div>
+           </div>
+           @include('theme::front-end.news.sidebar')
+       </div>
+       <hr>
+       @if($otherNews->count() > 0)
+           @include('theme::front-end.news.other')
+       @endif
+   </div>
 @endsection

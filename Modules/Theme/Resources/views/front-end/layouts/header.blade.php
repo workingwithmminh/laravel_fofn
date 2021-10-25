@@ -48,7 +48,7 @@
                                                         class="fa fa-home"></i></a></li>
                                     @else
                                         <li class="{{ $menuChild->count() > 0 ? 'pn-dropdown' : '' }} ">
-                                            <a href="{{ url($item->slug) }}{{ $item->type_id == 0 ? '' : '.html' }}">{{ $item->title }}</a>
+                                            <a class="text__white" href="{{ url($item->slug) }}{{ $item->type_id == 0 ? '' : '.html' }}">{{ $item->title }}</a>
                                             {!! $menuChild->count() > 0 ? '<span class="fa fa-angle-down"></span>' : ''  !!}
                                             @if($menuChild->count() > 0)
                                                 <ul class="list-inline-block">

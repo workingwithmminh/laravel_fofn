@@ -45,6 +45,11 @@ class Category extends Model
         return $this->hasMany('App\News');
     }
 
+    public function gallery()
+    {
+        return $this->hasMany('App\GalleryCategory', 'category_id');
+    }
+
     public static function getListCategoryToArray($categories, $parent_id = '', $level = '', $result = []){
         global $result;
         foreach ( $categories as $key => $item){
