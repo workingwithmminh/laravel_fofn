@@ -34,7 +34,9 @@
                     </div>
                     @php($categoryIds = \App\Category::with('parent')->where('parent_id', $item->id)->pluck('id')->toArray())
                     @php($news = \App\News::with('category')->whereIn('category_id', $categoryIds)->orWhere('category_id', $item->id)->latest()->get())
-                    @php($news_small = $news->take(-1))
+                    @php($news_small = $news->filter(function($news, $key){
+                         return $key != 0;
+                    }))
                     <div class="row news__market--wrap">
                         @if($news->count() >0)
                             <div class="col-md-6">
