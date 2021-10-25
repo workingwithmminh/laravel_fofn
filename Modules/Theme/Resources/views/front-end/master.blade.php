@@ -54,6 +54,7 @@
 </head>
 
 <body>
+{!! str_replace('<br />','',$settings['fanpage_facebook_body']) !!}
 <div id='overlay'></div>
 @section('schema')
     <script type="application/ld+json">
