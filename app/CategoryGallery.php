@@ -2,12 +2,11 @@
 
 namespace App;
 
-use Carbon\Carbon;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
-class GalleryCategory extends Model
+
+class CategoryGallery extends Model
 {
     /**
      * The database table used by the model.

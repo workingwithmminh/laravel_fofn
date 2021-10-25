@@ -1,3 +1,64 @@
+@section('css')
+    <link href="{{ asset('plugins/dropzone/dropzone.min.css') }}">
+    <style>
+        .quote-imgs-thumbs {
+            background: #eee;
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            margin: 1.5rem 0;
+            padding: 0.75rem;
+        }
+
+        .quote-imgs-thumbs--hidden {
+            display: none;
+        }
+
+        .img-preview-thumb {
+            background: #fff;
+            border: 1px solid #777;
+            border-radius: 0.25rem;
+            box-shadow: 0.125rem 0.125rem 0.0625rem rgba(0, 0, 0, 0.12);
+            margin-right: 1rem;
+            max-width: 100px;
+            max-height: 100px;
+            padding: 0.25rem;
+        }
+
+        .galleries {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        }
+
+        .galleries .gallery img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            -o-object-fit: cover;
+            object-fit: cover;
+        }
+
+        .imgprev-wrap {
+            background: #f7f7f7;
+            margin-top: 10px;
+            padding: 5px;
+            border: 1px dashed #ccc;
+            border-radius: 1px;
+            width: 100%;
+            position: relative;
+        }
+
+        .galleries .gallery {
+            -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
+            max-width: 25%;
+            padding-bottom: 15%;
+        }
+    </style>
+@endsection
 <div class="box-body">
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -61,14 +122,6 @@
                 </div>
             </td>
         </tr>
-        <tr class="row {{ $errors->has('keywords') ? 'has-error' : ''}}">
-            <td class="col-md-4 col-lg-3">
-                {!! Form::label('keywords', trans('theme::news.keywords'), ['class' => 'control-label']) !!}
-            </td>
-            <td class="col-md-8 col-lg-9">
-                {!! Form::text('keywords', null, ['class' => 'form-control input-sm', 'required' => 'required']) !!}
-            </td>
-        </tr>
         <tr class="row {{ $errors->has('description') ? 'has-error' : ''}}">
             <td class="col-md-4 col-lg-3">
                 {!! Form::label('description', trans('theme::categories.meta_description'), ['class' => 'control-label']) !!}
@@ -98,7 +151,7 @@
                     <div id="previews" class="galleries">
                         @isset($category->gallery)
                             @if(!empty($category->gallery))
-                                @foreach(\App\GalleryCategory::where('category_id', $category->id)->get() as $file)
+                                @foreach(\App\CategoryGallery::where('category_id', $category->id)->get() as $file)
                                     <div class="gallery imgprev-wrap imgprev-wrap-gallery" style="display:block">
                                         <input type="hidden" name="images[]" value="{{ $file->image }}">
                                         <img class="img-preview" src="{{ asset($file->image) }}" alt="">
@@ -192,19 +245,6 @@
         }
         return false;
     }
-
-    $(function () {
-        $("#previews,#files-list").sortable({
-            items: '.gallery',
-            cursor: 'move',
-            opacity: 0.5,
-            containment: '#previews,#files-list',
-            distance: 20,
-            tolerance: 'pointer',
-        });
-        $("#previews,#files-list").disableSelection();
-    });
-
     $(function () {
         $("#previews").sortable({
             items: '.gallery',

@@ -47,7 +47,7 @@ class Category extends Model
 
     public function gallery()
     {
-        return $this->hasMany('App\GalleryCategory', 'category_id');
+        return $this->hasMany('App\CategoryGallery', 'category_id');
     }
 
     public static function getListCategoryToArray($categories, $parent_id = '', $level = '', $result = []){
