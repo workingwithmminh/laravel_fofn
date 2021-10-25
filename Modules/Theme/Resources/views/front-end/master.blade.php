@@ -44,7 +44,7 @@
     <meta name="twitter:card" content="article"/>
     <meta name="twitter:description" content="{{ $settings['meta_description'] }}"/>
     <meta name="twitter:title" content="{{ $settings['meta_title'] }}"/>
-    <meta name="twitter:image" content="{{ asset(Storage::url($settings['company_logo'])) }}"/>
+    <meta name="twitter:image" content="{{ asset($settings['company_logo']) }}"/>
     <link rel="preconnect" href="//fonts.googleapis.com">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}"/>
     <link rel="canonical" href="{{ Request::fullUrl() }}"/>

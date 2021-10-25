@@ -29,45 +29,46 @@
                         <a href="{{ url($item->slug) }}" class="news__title--active">{{ $item->title }}</a>
                         @php($categories_sub = \App\Category::with('parent')->where('parent_id', $item->id)->get())
                         @foreach($categories_sub as $itemSub)
-                            @php($news = \App\News::with('category')->where([['category_id', $itemSub->id]])->orWhere([['category_id', $itemSub->parent_id]])->get())
                             <a href="{{ url($item->slug."/".$itemSub->slug) }}">{{ $itemSub->title }}</a>
                         @endforeach
                     </div>
-                    @php($news_first = \App\News::with('category')->where('category_id', $item->id)->orWhere('category_id', $item->parent_id)->latest()->first())
+                    @php($categoryIds = \App\Category::with('parent')->where('parent_id', $item->id)->pluck('id')->toArray())
+                    @php($news = \App\News::with('category')->whereIn('category_id', $categoryIds)->orWhere('category_id', $item->id)->latest()->get())
+                    @php($news_small = $news->take(-1))
                     <div class="row news__market--wrap">
                         @if($news->count() >0)
                             <div class="col-md-6">
-                                @if($news_first != null)
+                                @if($news != null)
                                     <div class="image-responsive">
                                         <img class="img-fluid image-responsive--lg lazyload"
-                                             data-src="{{ asset($news_first->image) }}"
-                                             alt="{{ $news_first->title }}">
+                                             data-src="{{ asset($news[0]->image) }}"
+                                             alt="{{ $news[0]->title }}">
                                     </div>
-                                    <a href="{{ url($news_first->category->slug . '/' .$news_first->slug) }}.html"
-                                       class="news__title--lg">{{ $news_first->title }}</a>
+                                    <a href="{{ url($news[0]->category->slug . '/' .$news[0]->slug) }}.html"
+                                       class="news__title--lg">{{ $news[0]->title }}</a>
                                    <div>
                                         <span class="news__date">
                                             <a class="item-link"
-                                               href="{{ url(optional($news_first->category)->slug) }}">{{ optional($news_first->category)->title }}</a>
+                                               href="{{ url(optional($news[0]->category)->slug) }}">{{ optional($news[0]->category)->title }}</a>
                                             <span>-&nbsp;&nbsp;</span>
-                                            <span>{{ _("Cập nhật ").Carbon\Carbon::parse($news_first->updated_at)->format(config('settings.format.date')) }}</span>
+                                            <span>{{ _("Cập nhật ").Carbon\Carbon::parse($news[0]->updated_at)->format(config('settings.format.date')) }}</span>
                                     </span>
                                    </div>
                                 @endif
                             </div>
                             <div class="col-md-6">
-                                @foreach($news as $x)
+                                @foreach($news_small as $item)
                                     <div class="row">
                                         <div class="col-md-5">
                                             <div class="image-responsive">
                                                 <img class="img-fluid image-responsive--lg lazyload"
-                                                     data-src="{{ asset($x->image) }}"
-                                                     alt="{{ $x->title }}">
+                                                     data-src="{{ asset($item->image) }}"
+                                                     alt="{{ $item->title }}">
                                             </div>
                                         </div>
                                         <div class="col-md-7">
-                                            <a href="{{ url($x->category->slug . '/' .$x->slug) }}.html"
-                                               class="news__title--small news__title--small--viewer">{{ $x->title }}</a>
+                                            <a href="{{ url($item->category->slug . '/' .$item->slug) }}.html"
+                                               class="news__title--small news__title--small--viewer">{{ $item->title }}</a>
                                             <span class="news__date">
                                                 <span> {{ _("Cập nhật ").Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}</span>
                                             </span>
