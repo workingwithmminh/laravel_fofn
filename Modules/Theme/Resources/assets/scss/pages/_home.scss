@@ -1,25 +1,30 @@
 @font-face {
-    font-family: Roboto;
-    src: url("../../webfonts/Roboto-Regular.ttf");
-  }
-  @font-face {
-    font-family: Material Icons;
-    src: url("../../webfonts/MaterialIcons-Regular.ttf");
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    top: 0 !important;
-    font-family: "Roboto", serif !important;
-    overflow: overlay;
-  }
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
+  font-family: Roboto;
+  src: url("../../webfonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: Material Icons;
+  src: url("../../webfonts/MaterialIcons-Regular.ttf");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  top: 0 !important;
+  font-family: "Roboto", serif !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+

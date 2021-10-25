@@ -16,7 +16,6 @@ a:hover{
 .lazyload {
     opacity: 0;
 }
-
 .form-control{
     box-shadow: none !important;
 }
@@ -339,10 +338,7 @@ input:focus, textarea:focus, input:visited, textarea:visited {
 .sidebar-icon{
     color: #1F5014;
 }
-.dropdown-container {
-    display: none;
-    background-color: #f2f2f2;
-}
+
 footer{
     background-color: #10181e;
     margin-top: 30px;
