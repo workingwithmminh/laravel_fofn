@@ -10,7 +10,7 @@
                              alt="{{ $item->title }}">
                     </div>
                     <div class="news__content">
-                        <a class="news__title--lg" href="{{ url($item->category->slug . '/' .$item->slug) }}.html" class="news__content__title">{{ \Illuminate\Support\Str::limit($item->title, 70)}}</a>
+                        <a class="news__title--lg text__white" href="{{ url($item->category->slug . '/' .$item->slug) }}.html" class="news__content__title">{{ \Illuminate\Support\Str::limit($item->title, 70)}}</a>
                     </div>
                 </div>
             @empty

@@ -9,7 +9,7 @@ use Kyslik\ColumnSortable\Sortable;
 
 class News extends Model
 {
-    use Sortable, SoftDeletes;
+    use Sortable;
 
     const ID_NEWS = 2;
 
@@ -40,7 +40,7 @@ class News extends Model
      *
      * @var array
      */
-    protected $fillable = ['title','category_id','slug','image', 'description','content','active','is_focus'];
+    protected $fillable = ['title','category_id','slug','image', 'description','content','active'];
 
     public function category(){
         return $this->belongsTo('App\Category');

@@ -2,7 +2,7 @@
 @section('title')
 <title>{{ $news->title }}</title>
 <meta name="description" content="{{ !empty($news->description) ? \Illuminate\Support\Str::limit($news->description, 200) : $settings['meta_description'] }}" />
-<meta name="keywords" content="{{ !empty($news->keywords) ? $news->keywords : $settings['meta_keyword'] }}" />
+<meta name="keywords" content="{{ !empty($news->title) ? $news->title : $settings['meta_keyword'] }}" />
 @endsection
 
 @section('schema')

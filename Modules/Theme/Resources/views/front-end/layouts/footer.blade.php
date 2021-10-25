@@ -15,4 +15,5 @@
         <hr>
         <div class="footer__copyright">Copyright © 2019 Kiến thức kinh tế. All rights reserved</div>
     </div>
+    <a class="back__top backtop" title="Lên đầu trang" href="#page-top"><i class="fa fa-angle-up"></i></a>
 </footer>

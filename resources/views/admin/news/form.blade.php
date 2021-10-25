@@ -72,14 +72,6 @@
                 {!! Form::text('keywords', null, ['class' => 'form-control input-sm', 'required' => 'required']) !!}
             </td>
         </tr>
-        <tr class="row {{ $errors->has('description') ? 'has-error' : ''}}">
-            <td class="col-md-4 col-lg-3">
-                {!! Form::label('description', trans('theme::news.meta_description'), ['class' => 'control-label']) !!}
-            </td>
-            <td class="col-md-8 col-lg-9">
-                {!! Form::textarea('description', null, ['class' => 'form-control input-sm ','rows' => 5]) !!}
-            </td>
-        </tr>
         <tr class="row {{ $errors->has('content') ? 'has-error' : ''}}">
             <td class="col-md-4 col-lg-3">
                 {!! Form::label('content', trans('theme::news.content'), ['class' => 'control-label label-required']) !!}
@@ -87,14 +79,6 @@
             <td class="col-md-8 col-lg-9 form-content">
                 {!! Form::textarea('content', null, ['class' => 'form-control input-sm required']) !!}
                 {!! $errors->first('content', '<p class="help-block">:message</p>') !!}
-            </td>
-        </tr>
-        <tr class="row {{ $errors->has('is_focus') ? 'has-error' : ''}}">
-            <td class="col-md-4 col-lg-3">
-                {!! Form::label('is_focus', trans('theme::news.focus'), ['class' => 'control-label']) !!}
-            </td>
-            <td class="col-md-8 col-lg-9">
-                {!! Form::checkbox('is_focus', 1, (isset($news) && $news->is_focus===1)?true:false, ['class' => 'flat-blue', 'id' => 'active']) !!}
             </td>
         </tr>
         <tr class="row {{ $errors->has('active') ? 'has-error' : ''}}">
