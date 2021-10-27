@@ -3,17 +3,17 @@
     <section class="news__hot container mt-2">
         <div class="row">
             @foreach($newsHot as $item)
-                <div class="col-sm-6 col-md-4">
-                    <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
-                       class="image-responsive">
-                        <img class="img-fluid image-responsive--lg lazyload"
-                             data-src="{{ asset($item->image) }}"
-                             alt="{{ $item->title }}">
-                    </a>
-                    <div class="news__content">
-                        <a class="news__title--lg text__white"
+                <div class="col-12 col-md-4">
+                    <div class="news__item">
+                        <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
+                           class="image-responsive item-link">
+                            <img class="image-responsive--lg lazyload"
+                                 data-src="{{ asset($item->image) }}"
+                                 alt="{{ $item->title }}">
+                        </a>
+                        <a class="news__content"
                            href="{{ url($item->category->slug . '/' .$item->slug) }}.html"
-                           class="news__content__title">{{ \Illuminate\Support\Str::limit($item->title, 70)}}</a>
+                        >{{ \Illuminate\Support\Str::limit($item->title, 70)}}</a>
                     </div>
                 </div>
             @endforeach
@@ -22,6 +22,13 @@
 
     <section class="news__market container py-4">
         @foreach($categories as $key => $item)
+            <div class="news-slider owl-carousel">
+                @foreach($item->gallery as $itemX)
+                <div class="item">
+                    <img class="img-fluid lazyload" data-src="{{ $itemX->image }}">
+                </div>
+                @endforeach
+            </div>
             <div class="row">
                 <div class="col-md-9">
                     <div class="news__title">
@@ -58,7 +65,7 @@
                             </div>
                             <div class="col-md-6">
                                 @foreach($news_small as $item)
-                                    <div class="row">
+                                    <div class="row mb-2">
                                         <div class="col-md-5">
                                             <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                                                class="image-responsive">
@@ -69,7 +76,7 @@
                                         </div>
                                         <div class="col-md-7">
                                             <a href="{{ url($item->category->slug . '/' .$item->slug) }}.html"
-                                               class="news__title--small">{{ $item->title }}</a>
+                                               class="news__title--small">{{ \Illuminate\Support\Str::limit($item->title, 70) }}</a>
                                             <span class="news__date">
                                                 <span> {{ _("Cập nhật ").Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}</span>
                                             </span>

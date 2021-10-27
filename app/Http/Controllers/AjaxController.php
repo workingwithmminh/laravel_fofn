@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Agent;
+use App\CategoryGallery;
 use App\Customer;
 use App\Guide;
 use App\Http\Requests;
@@ -27,68 +28,18 @@ class AjaxController extends Controller
 		return $this->{$action}($request);
 	}
 
-	/**
-	 * Get list agent by company id
-	 * action: getAgentsByCompanyID
-	 * @param Request $request
-	 *
-	 * @return \Illuminate\Http\JsonResponse|null
-	 */
-	private function getAgents(Request $request){
-
-		$agents = Agent::select('name','id')->get();
-
-		return response()->json($agents);
-	}
-
-    /**
-     * Get list service in view report
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse|null
-     */
-	public function getServiceReport(Request $request){
-	    if ($request->module == null){
-	        return response()->json();
-        }
-        $moduleInfo = new ModuleInfo($request->module);
-        $service = $moduleInfo->getBookingServiceInfo();
-        if ($request->module == 'car' || $request->module == 'bike'){
-            $list_services = $service['namespaceModel']::pluck('number_plate', 'id');
-        }else{
-            $list_services = $service['namespaceModel']::pluck('name', 'id');
-        }
-
-        return response()->json($list_services);
+    public function deleteGallery(Request $request)
+    {
+        $id = $request->id;
+        $gallery  = CategoryGallery::findOrFail($id);
+        \File::delete($gallery->image);
+        CategoryGallery::where('id',$id)->delete($id);
+        return response()->json([
+            'success' => 'ok'
+        ]);
     }
 
-    /*
-     * activeSliders
-     * @param: $request
-     * */
-    public function activeReview(Request $request){
-        $ids = $request->ids;
-        $arrId = explode(',', $ids,-1);
-        foreach ($arrId as $item){
-            $review = Review::findOrFail($item);
-            $active = $review->active == config('settings.active') ? config('settings.inactive') : config('settings.active');
-            \DB::table('reviews')->where('id', $review->id)->update(['active' => $active]);
-        }
-        return \response()->json(['success' => 'ok']);
-    }
 
-    /*
-     * deleteSliders
-     * @param: $request
-     * */
-    public function deleteReview(Request $request){
-        $ids = $request->ids;
-        $arrId = explode(',', $ids,-1);
-        foreach ($arrId as $item){
-            Review::destroy($item);
-        }
-        return \response()->json(['success' => 'ok']);
-    }
     /*
      * DeleteMenus
      * @param: $request
@@ -97,20 +48,10 @@ class AjaxController extends Controller
         $ids = $request->ids;
         $arrId = explode(',', $ids,-1);
         foreach ($arrId as $item){
-//            $menu = Menu::findOrFail($item);
-//            switch ($menu->keywords){
-//                case 'pages':
-//                    Page::where('slug', $menu->slug)->delete();
-//                    break;
-//                case 'categories':
-//                    Category::where('slug', $menu->slug)->delete();
-//                    break;
-//                case 'media':
-//                    MediaCategory::where('slug', $menu->slug)->delete();
-//                    break;
-//            }
             \Modules\SysMenu\Entities\Menu::destroy($item);
         }
         return \response()->json(['success' => 'ok']);
     }
+
+
 }

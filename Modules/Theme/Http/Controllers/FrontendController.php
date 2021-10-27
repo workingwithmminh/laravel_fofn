@@ -69,8 +69,8 @@ class FrontendController extends Controller
     public function index()
     {   
 //        $news = $this->getNewsFocus(config('settings.paginate.page10'));
-        $newsHot = News::with('category')->where('category_id', News::ID_NEWS)->latest()->take(9)->get();
-        $categories = Category::with('parent')->whereNull('parent_id')->get();
+        $newsHot = News::with('category')->latest()->take(9)->get();
+        $categories = Category::with('parent', 'gallery')->whereNull('parent_id')->get();
         return view('theme::front-end.layouts.home', compact('newsHot', 'categories'));
     }
 
@@ -123,11 +123,11 @@ class FrontendController extends Controller
         switch ($slugParent) {
             case in_array($slugParent, $slugCategory):
                 $category = Category::where(['slug' => $slugParent, 'active' => config('settings.active')])->first();
-                $news = News::with('category')->where([['category_id', '=', $category->id], 'active' => config('settings.active')])->first();
+                $news = News::with('category')->where([['category_id', $category->id], 'active' => config('settings.active'),['slug', $slugDetail]])->first();
                 //Increment view
                 News::find($news->id)->increment('view');
                 $otherNews = News::with('category')->where([['category_id', '=', $category->id], ['active', '=', config('settings.active')], ['id', '<>', $news->id]])->orderBy('updated_at', 'DESC')->take(3)->get();
-                return view("theme::front-end.news.detail", compact('slugParent', 'slugDetail', 'news', 'category', 'otherNews'));
+                return view("theme::front-end.news.detail", compact('news', 'category', 'otherNews'));
             case in_array($slugParent, $slugMenu):
                 $menu = SysMenu::where(['slug' => $slugParent])->first();
                 $page = Page::where([['slug', '=', $slugDetail], ['active', '=', config('settings.active')]])->first();

@@ -22,7 +22,8 @@
             <h3 class="box-title">{{ __('message.new_add') }}</h3>
             <div class="box-tools">
                 <a href="{{ url('/admin/categories') }}" class="btn btn-warning btn-sm"><i class="fa fa-arrow-left"
-                                                                                           aria-hidden="true"></i> <span class="hidden-xs">{{ __('message.lists') }}</span></a>
+                                                                                           aria-hidden="true"></i> <span
+                            class="hidden-xs">{{ __('message.lists') }}</span></a>
             </div>
         </div>
 

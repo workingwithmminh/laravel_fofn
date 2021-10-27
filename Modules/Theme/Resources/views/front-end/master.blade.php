@@ -48,6 +48,7 @@
     <link rel="preconnect" href="//fonts.googleapis.com">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}"/>
     <link rel="canonical" href="{{ Request::fullUrl() }}"/>
+    <link href="{{ url(asset('css/style.css')) }}" rel="stylesheet"/>
     <link href="{{ url(mix('/css/web.css')) }}" rel="stylesheet"/>
     @yield('style')
     {!! str_replace('<br />','',$settings['google_analytics']) !!}
@@ -79,6 +80,7 @@
                 "addressCountry": "VN"
             }
         }
+
 
     </script>
 @show

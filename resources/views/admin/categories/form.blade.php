@@ -96,32 +96,32 @@
                 {!! Form::select('parent_id', $categories, null, ['class' => 'form-control input-sm select2']) !!}
             </td>
         </tr>
-        <tr class="row {{ $errors->has('avatar') ? 'has-error' : ''}}">
-            <td class="col-md-4 col-lg-3">
-                {!! Form::label('avatar', trans('theme::categories.avatar'), ['class' => 'control-label']) !!}
-            </td>
-            <td class="col-md-8 col-lg-9">
-                <div>
-                    <div class="input-group inputfile-wrap ">
-                        <input type="text" class="form-control input-sm" readonly>
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-danger btn-sm">
-                                <i class=" fa fa-upload"></i>
-                                {{ __('message.upload') }}
-                            </button>
-                            {!! Form::file('avatar', array_merge(['id'=>'image', 'class' => 'form-control input-sm', "accept" => "image/*"])) !!}
-                        </div>
-                        {!! $errors->first('avatar', '<p class="help-block">:message</p>') !!}
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="imgprev-wrap" style="display:{{ !empty($category->avatar)?'block':'none' }}">
-                        <input type="hidden" value="" name="img-hidden" />
-                        <img class="img-preview" src="{{ !empty($category->avatar)?asset($category->avatar):'' }}" alt="{{ trans('theme::categories.avatar') }}" />
-                        <i class="fa fa-trash text-danger"></i>
-                    </div>
-                </div>
-            </td>
-        </tr>
+{{--        <tr class="row {{ $errors->has('avatar') ? 'has-error' : ''}}">--}}
+{{--            <td class="col-md-4 col-lg-3">--}}
+{{--                {!! Form::label('avatar', trans('theme::categories.avatar'), ['class' => 'control-label']) !!}--}}
+{{--            </td>--}}
+{{--            <td class="col-md-8 col-lg-9">--}}
+{{--                <div>--}}
+{{--                    <div class="input-group inputfile-wrap ">--}}
+{{--                        <input type="text" class="form-control input-sm" readonly>--}}
+{{--                        <div class="input-group-btn">--}}
+{{--                            <button type="button" class="btn btn-danger btn-sm">--}}
+{{--                                <i class=" fa fa-upload"></i>--}}
+{{--                                {{ __('message.upload') }}--}}
+{{--                            </button>--}}
+{{--                            {!! Form::file('avatar', array_merge(['id'=>'image', 'class' => 'form-control input-sm', "accept" => "image/*"])) !!}--}}
+{{--                        </div>--}}
+{{--                        {!! $errors->first('avatar', '<p class="help-block">:message</p>') !!}--}}
+{{--                    </div>--}}
+{{--                    <div class="clearfix"></div>--}}
+{{--                    <div class="imgprev-wrap" style="display:{{ !empty($category->avatar)?'block':'none' }}">--}}
+{{--                        <input type="hidden" value="" name="img-hidden" />--}}
+{{--                        <img class="img-preview" src="{{ !empty($category->avatar)?asset($category->avatar):'' }}" alt="{{ trans('theme::categories.avatar') }}" />--}}
+{{--                        <i class="fa fa-trash text-danger"></i>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </td>--}}
+{{--        </tr>--}}
         <tr class="row {{ $errors->has('description') ? 'has-error' : ''}}">
             <td class="col-md-4 col-lg-3">
                 {!! Form::label('description', trans('theme::categories.meta_description'), ['class' => 'control-label']) !!}
@@ -152,10 +152,10 @@
                         @isset($category->gallery)
                             @if(!empty($category->gallery))
                                 @foreach(\App\CategoryGallery::where('category_id', $category->id)->get() as $file)
-                                    <div class="gallery imgprev-wrap imgprev-wrap-gallery" style="display:block">
+                                    <div class="gallery imgprev-wrap imgprev-wrap-gallery item-gallery-{{ $file->id }}" style="display:block">
                                         <input type="hidden" name="images[]" value="{{ $file->image }}">
                                         <img class="img-preview" src="{{ asset($file->image) }}" alt="">
-                                        <i class="fa fa-trash text-danger" onclick="return deleteFile(this)"></i>
+                                        <i class="fa fa-trash text-danger remove-gallery" data-id="{{ $file->id }}"></i>
                                     </div>
                                 @endforeach
                             @endif
@@ -184,42 +184,6 @@
 <script type="text/javascript" src="{{ asset('plugins/dropzone/jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/dropzone/dropzone.min.js') }}"></script>
 <script type="text/javascript">
-    $(function() {
-        CKEDITOR.replace('description');
-        $('#image').change(function() {
-            var preview = document.querySelector('img.img-preview');
-            var file = document.querySelector('#image').files[0];
-            var reader = new FileReader();
-
-            if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
-
-                reader.addEventListener("load", function() {
-                    preview.src = reader.result;
-                    $('.imgprev-wrap').css('display', 'block');
-                    $('.inputfile-wrap').find('input[type=text]').val(file.name);
-                }, false);
-
-                if (file) {
-                    reader.readAsDataURL(file);
-                }
-            } else {
-                document.querySelector('#image').value = '';
-                $('.imgprev-wrap').find('input[type=hidden]').val('');
-            }
-        });
-
-        $('.imgprev-wrap .fa-trash').click(function() {
-            var preview = document.querySelector('img.img-preview');
-
-            if (confirm('Bạn muốn xóa hình ảnh này không?')) {
-                preview.src = '';
-                $('.imgprev-wrap').css('display', 'none');
-                $('.inputfile-wrap').find('input[type=text]').val('');
-            }
-        })
-    });
-</script>
-<script type="text/javascript">
     var PreviewMultipleImage = function (input) {
         if (input.files) {
             var filesAmount = input.files.length;
@@ -238,6 +202,7 @@
         PreviewMultipleImage(this);
     });
 </script>
+@if(!isset($category->gallery))
 <script>
     function deleteFile(ob) {
         if (confirm('{{ __('Bạn có muốn xóa file này không?') }}')) {
@@ -245,6 +210,23 @@
         }
         return false;
     }
+</script>
+@endif
+<script>
+    $('body').on('click', '.remove-gallery', function() {
+        var galleryId = $(this).data("id");
+        axios.get('{{ url('/ajax/deleteGallery?id=') }}' + galleryId)
+            .then((response) => {
+                if (response.data.success === 'ok') {
+                    toastr.success("Xóa hình ảnh thành công");
+                    $('.item-gallery-' + galleryId).remove();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    });
+
     $(function () {
         $("#previews").sortable({
             items: '.gallery',
