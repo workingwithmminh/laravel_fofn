@@ -55,13 +55,7 @@ return [
             "type"=>"image",
             "group_data"=>"company_info", // Thông tin công ty
         ],
-        [
-            "key" => "company_website",
-            "value" => "",
-            "description" =>"Tên website",
-            "type"=>"text",
-            "group_data"=>"company_info",// Thông tin công ty
-        ],
+
         [
             "key" => "company_address",
             "value" => "",
@@ -76,13 +70,7 @@ return [
             "group_data"=>"company_info",// Thông tin công ty
             "type"=>"text"
         ],
-        [
-            "key" => "company_hotline",
-            "value" => "",
-            "description" =>"Hotline",
-            "group_data"=>"company_info",// Thông tin công ty
-            "type"=>"text"
-        ],
+
         [
             "key" => "company_email",
             "value" => "",
@@ -97,13 +85,7 @@ return [
             "group_data"=>"company_info",// Thông tin công ty
             "type"=>"text"
         ],
-        [
-            "key" => "ministry_industry_trade_link",
-            "value" => '',
-            "description" =>"Địa chỉ 'Đã thông báo bộ công thương'",
-            "group_data"=>"company_info",// Thông tin công ty
-            "type"=>"text"
-        ],
+
         [
             "key" => "follow_facebook",
             "value" => "https://www.facebook.com/",
@@ -114,21 +96,14 @@ return [
         [
             "key" => "follow_twitter",
             "value" => "https://www.twitter.com/",
-            "description" =>"Địa chỉ google",
+            "description" =>"Địa chỉ twitter",
             "group_data"=>"social_info",// Mạng xã hội
             "type"=>"text"
         ],
         [
-            "key" => "follow_linked",
-            "value" => "https://www.linkedin.com/",
-            "description" =>"Địa chỉ linked in",
-            "group_data"=>"social_info",// Mạng xã hội
-            "type"=>"text"
-        ],
-        [
-            "key" => "follow_google",
-            "value" => "https://www.google.com/",
-            "description" =>"Địa chỉ google search",
+            "key" => "follow_instagram",
+            "value" => "https://www.instagram.com/",
+            "description" =>"Địa chỉ instagram",
             "group_data"=>"social_info",// Mạng xã hội
             "type"=>"text"
         ],
@@ -140,40 +115,13 @@ return [
             "type"=>"text"
         ],
         [
-            "key" => "follow_zalo",
-            "value" => "https://zalo.me",
-            "description" =>"Địa chỉ Zalo",
-            "group_data"=>"social_info",// Mạng xã hội
-            "type"=>"text"
-        ],
-        [
-            "key" => "follow_instagram",
-            "value" => "https://www.instagram.com/",
-            "description" =>"Địa chỉ Instagram",
-            "group_data"=>"social_info",// Mạng xã hội
-            "type"=>"text"
-        ],
-        [
-            "key" => "fanpage_facebook_body",
-            "value" => "",
-            "description" =>"Mã nhúng fanpage facebook body",
-            "group_data"=>"iframe_info",// Mã nhúng
-            "type"=>"textarea"
-        ],
-        [
             "key" => "fanpage_facebook",
             "value" => "",
             "description" =>"Mã nhúng fanpage facebook",
             "group_data"=>"iframe_info",// Mã nhúng
             "type"=>"textarea"
         ],
-        [
-            "key" => "google_analytics",
-            "value" => "",
-            "description" =>"Mã nhúng google analytics",
-            "group_data"=>"iframe_info",// Mã nhúng
-            "type"=>"textarea"
-        ],
+
         [
             "key" => "google_map",
             "value" => "",

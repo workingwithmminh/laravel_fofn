@@ -13,7 +13,7 @@
                    <div class="item-body">
                        <h5 class="news__title--lg">
                            <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
-                              class="news__title--lg">{{ $item->title }}</a>
+                              class="news__title--lg">{{ \Illuminate\Support\Str::limit($item->title, 70) }}</a>
                        </h5>
                        <span class="news__date">
                                         {{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}

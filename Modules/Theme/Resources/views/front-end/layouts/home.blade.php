@@ -19,16 +19,17 @@
             @endforeach
         </div>
     </section>
-
     <section class="news__market container py-4">
         @foreach($categories as $key => $item)
-            <div class="news-slider owl-carousel">
-                @foreach($item->gallery as $itemX)
-                <div class="item">
-                    <img class="img-fluid lazyload" data-src="{{ $itemX->image }}">
+            @if(($item->gallery)->count() >0)
+                <div class="news-slider owl-carousel">
+                    @foreach($item->gallery as $itemX)
+                        <div class="item">
+                            <img class="img-fluid lazyload" data-src="{{ $itemX->image }}">
+                        </div>
+                    @endforeach
                 </div>
-                @endforeach
-            </div>
+            @endif
             <div class="row">
                 <div class="col-md-9">
                     <div class="news__title">

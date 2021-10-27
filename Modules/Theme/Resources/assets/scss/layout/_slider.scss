@@ -1,0 +1,36 @@
+.news-slider {
+  .item {
+    display: block;
+    position: relative;
+    height: 250px;
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      object-fit: cover;
+    }
+  }
+}
+.owl-nav {
+  display: block !important;
+  margin-top: -26px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  color: #070505;
+  i {
+    font-size: 35px;
+  }
+  .owl-next {
+    float: right;
+  }
+}
+.owl-carousel {
+  .item {
+    position: relative;
+    z-index: 100;
+    overflow: hidden;
+  }
+}

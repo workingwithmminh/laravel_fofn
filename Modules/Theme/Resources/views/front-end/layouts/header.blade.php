@@ -2,7 +2,7 @@
     <div class="header__top container py-1">
         <div class="row">
             <div class="header__top__left col-sm-12 col-md-6">
-                <p>Email: <a rel="nofollow" href="#"
+                <p>Email: <a rel="nofollow" href="mailto:{{ $settings['company_email'] }}"
                              class="text-success"><small>{{ $settings['company_email'] }}</small></a></p>
             </div>
             <div class="header__top__right col-sm-12 col-md-6 d-flex align-items-center justify-content-end">
@@ -13,10 +13,10 @@
                     </form>
                 </div>
                 <ul class="list-inline-block d-flex align-items-center">
-                    <a target="_blank" rel="nofollow" href=""><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                    <a target="_blank" rel="nofollow" href=""><i class="fab fa-twitter" aria-hidden="true"></i></a>
-                    <a target="_blank" rel="nofollow" href=""><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                    <a target="_blank" rel="nofollow" href="https://www.youtube.com/user/nobitapt">
+                    <a target="_blank" rel="nofollow" href="{!! $settings['follow_facebook']!!}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a target="_blank" rel="nofollow" href="{!! $settings['follow_twitter'] !!}"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a target="_blank" rel="nofollow" href="{!! $settings['follow_instagram'] !!}"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a target="_blank" rel="nofollow" href="{!! $settings['follow_youtube'] !!}">
                         <i class="fab fa-youtube" aria-hidden="true"></i>
                     </a>
                 </ul>
@@ -55,7 +55,7 @@
                                                     @foreach($menuChild as $itemChild)
                                                         @php($menuChildren = \App\Menu::with('parent')->where('parent_id', $itemChild->id)->get())
                                                         <li>
-                                                            <a href="{{ url($item->slug . '/' .$itemChild->slug) }}{{ $itemChild->type_id == 0 ? '' : '.html' }}">{{ $itemChild->title }}</a>
+                                                            <a class="item-child" href="{{ url($item->slug . '/' .$itemChild->slug) }}{{ $itemChild->type_id == 0 ? '' : '.html' }}">{{ $itemChild->title }}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>

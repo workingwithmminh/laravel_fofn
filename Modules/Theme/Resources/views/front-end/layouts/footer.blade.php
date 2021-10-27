@@ -2,7 +2,7 @@
     <div class="container">
         <p class="footer__social">
             <a target="_blank" rel="nofollow" href="{!! $settings['follow_facebook'] !!}"><i class="fab fa-facebook px-2"></i></a>
-            <a target="_blank" rel="nofollow" href=""><i class="fab fa-twitter px-2"></i></a>
+            <a target="_blank" rel="nofollow" href="{!! $settings['follow_twitter'] !!}"><i class="fab fa-twitter px-2"></i></a>
             <a target="_blank" rel="nofollow" href="{!! $settings['follow_instagram'] !!}"><i class="fab fa-instagram px-2"></i></a>
             <a target="_blank" rel="nofollow" href="{!! $settings['follow_youtube'] !!}"><i class="fab fa-youtube"></i></a>
         </p>

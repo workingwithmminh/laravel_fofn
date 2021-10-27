@@ -1,26 +1,22 @@
+@font-face {
+  font-family: Roboto;
+  src: url("../../webfonts/Roboto-Regular.ttf");
+}
 body{
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-size: 16px;
+  margin: 0;
+  padding: 0;
+  top: 0;
 }
-@include spaceStyle('.pt-','padding-top', 15);
-@include spaceStyle('.pt-','padding-top', 30);
-@include spaceStyle('.pt-','padding-top', 50);
-@include spaceStyle('.pb-','padding-bottom', 15);
-@include spaceStyle('.pb-','padding-bottom', 30);
-@include spaceStyle('.pl-','padding-left', 0);
-@include spaceStyle('.pl-','padding-left', 15);
-@include spaceStyle('.pl-','padding-left', 30);
-@include spaceStyle('.mt-','margin-top', 15);
-@include spaceStyle('.mb-','margin-bottom', 15);
-@include spaceStyle('.mb-','margin-bottom', 30);
-@include spaceStyle('.mb-','margin-bottom', 20);
+
 a{
   color: $green;
   @include animation(transition,all ease-in 200ms)
 }
 a:hover{
   text-decoration: none;
-  color: $green;
+  color: #2f8c1a;
   @include animation(transition,all ease-out 200ms)
 }
 
