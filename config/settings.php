@@ -55,7 +55,13 @@ return [
             "type"=>"image",
             "group_data"=>"company_info", // Thông tin công ty
         ],
-
+        [
+            "key" => "company_website",
+            "value" => "",
+            "description" =>"Tên website",
+            "type"=>"text",
+            "group_data"=>"company_info",// Thông tin công ty
+        ],
         [
             "key" => "company_address",
             "value" => "",
@@ -70,7 +76,13 @@ return [
             "group_data"=>"company_info",// Thông tin công ty
             "type"=>"text"
         ],
-
+        [
+            "key" => "company_hotline",
+            "value" => "",
+            "description" =>"Hotline",
+            "group_data"=>"company_info",// Thông tin công ty
+            "type"=>"text"
+        ],
         [
             "key" => "company_email",
             "value" => "",
@@ -115,13 +127,26 @@ return [
             "type"=>"text"
         ],
         [
+            "key" => "fanpage_facebook_body",
+            "value" => "",
+            "description" =>"Mã nhúng fanpage facebook body",
+            "group_data"=>"iframe_info",// Mã nhúng
+            "type"=>"textarea"
+        ],
+        [
             "key" => "fanpage_facebook",
             "value" => "",
             "description" =>"Mã nhúng fanpage facebook",
             "group_data"=>"iframe_info",// Mã nhúng
             "type"=>"textarea"
         ],
-
+        [
+            "key" => "google_analytics",
+            "value" => "",
+            "description" =>"Mã nhúng google analytics",
+            "group_data"=>"iframe_info",// Mã nhúng
+            "type"=>"textarea"
+        ],
         [
             "key" => "google_map",
             "value" => "",

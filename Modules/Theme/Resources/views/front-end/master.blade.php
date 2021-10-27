@@ -69,8 +69,7 @@
             "sameAs": [
                 "{{ $settings['follow_facebook'] }}",
                 "{{ $settings['follow_twitter'] }}",
-                "{{ $settings['follow_linked'] }}",
-                "{{ $settings['follow_google'] }}"
+                "{{ $settings['follow_youtube'] }}"
             ],
             "address": {
                 "@type": "PostalAddress",
