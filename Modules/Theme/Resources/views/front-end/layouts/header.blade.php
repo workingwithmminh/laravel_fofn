@@ -26,13 +26,13 @@
     <div class="header__logo py-2">
         <div class="container">
             <div class="row">
-                <div class="col-6 col-md-4">
+                <div class="col-6 col-md-3">
                     <a class="header__logo--link" href="{{ url('/') }}">
                         <img src="{{ asset($settings['company_logo']) }}" alt="" class="img-fluid lazyloaded"
                              width="100px" height="80px">
                     </a>
                 </div>
-                <div class="col-6 col-md-8">
+                <div class="col-6 col-md-9">
                     <a class="sidebarBtn d-block d-xl-none">
                         <i class="sidebar-icon fas fa-bars"></i>
                     </a>
