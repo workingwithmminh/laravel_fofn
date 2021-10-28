@@ -83,20 +83,23 @@ textarea {
 
 .news__content {
   position: absolute;
+  width: 100%;
   bottom: 0;
   left: 0;
-  right: 0;
   color: #fff;
-  text-align: center;
-  font-weight: 500;
-  font-size: 16px;
-  height: 20px;
-  text-transform: uppercase;
+  padding: 8px 15px;
+  transition: all ease .3s;
   background-color: rgba(0,0,0,0.7);
-  width: 100%;
-  padding: 10px 10px 55px 10px;
-  z-index: 1;
+  display: table;
+  span {
+    height: 40px;
+    display: table-cell;
+    overflow: hidden;
+    vertical-align: middle;
+    text-transform: uppercase;
+  }
 }
+
 .news__title {
   border-bottom: 2px solid #1F5014;
   margin: 0 0 20px 0;
@@ -169,6 +172,14 @@ textarea {
   padding: 10px;
   border: 1px solid #dfdfdf;
   margin-bottom: 20px;
+}
+.news__title--top{
+  color: #fff;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: bold;
+  overflow: hidden;
+  max-height: 40px;
 }
 .news__date {
   font-size: 13px;

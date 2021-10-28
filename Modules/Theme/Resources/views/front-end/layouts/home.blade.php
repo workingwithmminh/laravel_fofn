@@ -11,9 +11,9 @@
                                  data-src="{{ asset($item->image) }}"
                                  alt="{{ $item->title }}">
                         </a>
-                        <a class="news__content"
+                        <a class="news__content news__title--top"
                            href="{{ url($item->category->slug . '/' .$item->slug) }}.html"
-                        >{{ \Illuminate\Support\Str::limit($item->title, 70)}}</a>
+                        ><span>{{ \Illuminate\Support\Str::limit($item->title, 70)}}</span></a>
                     </div>
                 </div>
             @endforeach

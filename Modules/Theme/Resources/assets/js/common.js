@@ -1,5 +1,8 @@
-
 $(function() {
+    $(".header__menu ul li").click(function(e) {
+        e.stopPropagation();
+        $(this).toggleClass("active");
+    });
     $('.news-slider').owlCarousel({
         loop: true,
         margin: 10,

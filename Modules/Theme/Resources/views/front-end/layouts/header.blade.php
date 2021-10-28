@@ -42,12 +42,12 @@
                                 @php($menuChild = \App\Menu::with('parent')->where('parent_id', $item->id)->get())
                                 @if($item->parent_id == null)
                                     @if($item->slug == 'trang-chu')
-                                        <li class="active"><a
+                                        <li class="{{ (Request::segment(1) == 'trang-chu') ? 'active' : '' }}"><a
                                                     href="{{ url($item->slug) }}{{ $item->type_id == 0 ? '' : '.html' }}"
                                                     class="hidden-sm hidden-xs"><i
                                                         class="fa fa-home"></i></a></li>
                                     @else
-                                        <li class="{{ $menuChild->count() > 0 ? 'pn-dropdown' : '' }} ">
+                                        <li class="{{ $menuChild->count() > 0 ? 'pn-dropdown' : '' }} {{ (Request::segment(1) == $item->slug) ? 'active' : '' }}">
                                             <a class="text__white" href="{{ url($item->slug) }}{{ $item->type_id == 0 ? '' : '.html' }}">{{ $item->title }}</a>
                                             {!! $menuChild->count() > 0 ? '<span class="fa fa-angle-down"></span>' : ''  !!}
                                             @if($menuChild->count() > 0)
