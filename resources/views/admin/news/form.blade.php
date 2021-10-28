@@ -99,6 +99,7 @@
     <script type="text/javascript" src="{{ asset('plugins/ckeditor_full/ckeditor.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('js/ckfinder/ckfinder.js') }}" ></script>
     <script>CKFinder.config({ connectorPath: '/ckfinder/connector' } );</script>
+    @include('ckfinder::setup')
     <script type="text/javascript">
         $(function(){
             CKEDITOR.replace('content', {
