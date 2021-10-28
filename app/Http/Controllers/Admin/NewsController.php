@@ -66,6 +66,9 @@ class NewsController extends Controller
             if ($request->hasFile('image')) {
                 $requestData['image'] = News::uploadAndResize($request->file('image'));
             }
+            if (empty($requestData['active'])){
+                $requestData['active'] = 0;
+            }
             News::create($requestData);
         });
         toastr()->success(__('theme::news.created_success'));
@@ -129,9 +132,6 @@ class NewsController extends Controller
             $requestData['active'] = 0;
         }
 
-        if (empty($requestData['is_focus'])){
-            $requestData['is_focus'] = 0;
-        }
 
         \DB::transaction(function () use ($request, $requestData, $news){
             if($request->hasFile('image')) {

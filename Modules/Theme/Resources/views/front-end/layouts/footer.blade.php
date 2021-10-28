@@ -13,7 +13,7 @@
             <p>Đ/c: {{ $settings['company_address'] }}</p>
         </div>
         <hr>
-        <div class="footer__copyright">Copyright © 2019 Kiến thức kinh tế. All rights reserved</div>
+        <div class="footer__copyright">Copyright © 2021 F0FN. All rights reserved</div>
     </div>
     <a class="back__top backtop" title="Lên đầu trang" href="#page-top"><i class="fa fa-angle-up"></i></a>
 </footer>
