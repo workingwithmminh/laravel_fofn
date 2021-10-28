@@ -78,20 +78,14 @@
                 "addressCountry": "VN"
             }
         }
-
-
     </script>
 @show
 @include('theme::front-end.layouts.header')
-
 @section('breadcrumb')
 @show
 @yield('content')
 @include('theme::front-end.layouts.footer')
-
 <script src="{{ url (mix('/js/web.js')) }}"></script>
 @yield('script')
-
 </body>
-
 </html>

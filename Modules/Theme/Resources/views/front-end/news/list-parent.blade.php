@@ -33,14 +33,6 @@
           }
          ]
         }
-
-
-
-
-
-
-
-
     </script>
 @endsection
 @section('breadcrumb')
@@ -180,6 +172,5 @@
                 @include('theme::front-end.news.sidebar')
             </div>
         </div>
-
     @endif
 @endsection

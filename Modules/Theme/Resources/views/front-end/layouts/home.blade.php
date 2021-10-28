@@ -40,7 +40,7 @@
                         @endforeach
                     </div>
                     @php($categoryIds = \App\Category::with('parent')->where('parent_id', $item->id)->pluck('id')->toArray())
-                    @php($news = \App\News::with('category')->whereIn('category_id', $categoryIds)->orWhere('category_id', $item->id)->latest()->get())
+                    @php($news = \App\News::with('category')->whereIn('category_id', $categoryIds)->orWhere('category_id', $item->id)->latest()->take(6)->get())
                     @php($news_small = $news->filter(function($news, $key){
                          return $key != 0;
                     }))
@@ -67,7 +67,7 @@
                             <div class="col-md-6">
                                 @foreach($news_small as $item)
                                     <div class="row mb-2">
-                                        <div class="col-md-5">
+                                        <div class="col-md-3">
                                             <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                                                class="image-responsive">
                                                 <img class="img-fluid image-responsive--lg lazyload"
@@ -75,7 +75,7 @@
                                                      alt="{{ $item->title }}">
                                             </a>
                                         </div>
-                                        <div class="col-md-7">
+                                        <div class="col-md-9">
                                             <a href="{{ url($item->category->slug . '/' .$item->slug) }}.html"
                                                class="news__title--small">{{ \Illuminate\Support\Str::limit($item->title, 70) }}</a>
                                             <span class="news__date">

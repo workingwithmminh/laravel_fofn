@@ -42,7 +42,6 @@
           }
          ]
         }
-
     </script>
 @endsection
 @section('breadcrumb')
@@ -52,17 +51,9 @@
         <a href="{{ url(optional($category->parent)->slug) }}"><strong>{{ optional($category->parent)->title }}</strong></a> /
         <strong>{{ $category->title }}</strong>
     </div>
-    {{--    <div class="breadcrumb breadcrumb-fixed">--}}
-    {{--        <div class="col">--}}
-    {{--            <a href="{{ url('/')}}">{{ trans('theme::frontend.home') }}</a>--}}
-    {{--            /--}}
-    {{--            <a href="{{ url(optional($category->parent)->slug) }}">{{ optional($category->parent)->title }}</a>--}}
-    {{--            / <span>{{ $category->title }}</span>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
 @endsection
 @section('content')
-    <div class="article article-list container">
+    <div class="container">
         <div class="row">
             @if($news->count() > 0)
                 <div class="col-12 col-lg-9">
