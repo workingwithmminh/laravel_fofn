@@ -7,7 +7,7 @@
                     <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                        class="image-responsive">
                         <img class="image-responsive--lg img-fluid lazyload"
-                             data-src="{{ asset($item->image) }}"
+                             data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
                              alt="{{ $item->title }}">
                     </a>
                 </div>

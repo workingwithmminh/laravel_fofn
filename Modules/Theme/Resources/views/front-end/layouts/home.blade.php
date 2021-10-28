@@ -8,7 +8,7 @@
                         <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                            class="image-responsive item-link">
                             <img class="image-responsive--lg lazyload"
-                                 data-src="{{ asset($item->image) }}"
+                                 data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
                                  alt="{{ $item->title }}">
                         </a>
                         <a class="news__content news__title--top"
@@ -25,7 +25,8 @@
                 <div class="news-slider owl-carousel">
                     @foreach($item->gallery as $itemX)
                         <div class="item">
-                            <img class="img-fluid lazyload" data-src="{{ $itemX->image }}">
+                            <img class="img-fluid lazyload"
+                                 data-src="{{ !empty($itemX->image)?asset($itemX->image):asset('/images/no_image_banner.jpg') }}">
                         </div>
                     @endforeach
                 </div>
@@ -51,7 +52,7 @@
                                     <a href="{{ url(optional($news[0]->category)->slug . '/' .$news[0]->slug) }}.html"
                                        class="image-responsive">
                                         <img class="img-fluid image-responsive--lg lazyload"
-                                             data-src="{{ asset($news[0]->image) }}"
+                                             data-src="{{ !empty($news[0]->image)?asset($news[0]->image):asset('/images/no_image.jpg') }}"
                                              alt="{{ $news[0]->title }}">
                                     </a>
                                     <a href="{{ url($news[0]->category->slug . '/' .$news[0]->slug) }}.html"
@@ -71,7 +72,7 @@
                                             <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                                                class="image-responsive">
                                                 <img class="img-fluid image-responsive--lg lazyload"
-                                                     data-src="{{ asset($item->image) }}"
+                                                     data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
                                                      alt="{{ $item->title }}">
                                             </a>
                                         </div>

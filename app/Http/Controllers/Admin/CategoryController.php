@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\CategoryGallery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\SysMenu;
@@ -73,7 +74,7 @@ class CategoryController extends Controller
             if (!empty($requestData['images'])){
                 if (count($requestData["images"]) > 0) {
                     foreach ($requestData['images'] as $file) {
-                        $image_galleries = Category::uploadAndResize($file);
+                        $image_galleries = CategoryGallery::uploadAndResize($file);
                         $category->gallery()->create([
                             'image' => $image_galleries,
                             'category_id' => $category->id,
@@ -143,7 +144,7 @@ class CategoryController extends Controller
                 if (count($requestData["images"]) > 0) {
                     foreach ($requestData['images'] as $file) {
                         if(!starts_with($file, "storage") && !starts_with($file, "[object File]")){
-                            $image_galleries = Category::uploadAndResize($file);
+                            $image_galleries = CategoryGallery::uploadAndResize($file);
                             $category->gallery()->create([
                                 'image' => $image_galleries,
                                 'category_id' => $category->id

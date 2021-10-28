@@ -36,7 +36,7 @@ class CategoryGallery extends Model
     }
 
 
-    static public function uploadAndResize($image, $width = 450, $height = null){
+    static public function uploadAndResize($image, $width = 1000, $height = null){
         if(empty($image)) return;
         $folder = "/images/categories/";
         if(!\Storage::disk(config('filesystems.disks.public.visibility'))->has($folder)){
@@ -48,9 +48,7 @@ class CategoryGallery extends Model
         $filename = str_slug(basename($image->getClientOriginalName(), '.'.$fileExt));
         $pathImage = str_replace([' ', ':'], '-', $folder.$timestamp. '-' .$filename.'.'.$fileExt);
 
-        $img = \Image::make($image->getRealPath())->resize($width, $height, function ($constraint) {
-            $constraint->aspectRatio();
-        });
+        $img = \Image::make($image->getRealPath());
 
         $img->save(storage_path('app/public').$pathImage);
 

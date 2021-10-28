@@ -54,7 +54,7 @@
                                     <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                                        class="image-responsive">
                                         <img class="image-responsive--lg img-fluid lazyload"
-                                             data-src="{{ asset($item->image) }}"
+                                             data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
                                              alt="{{ $item->title }}">
                                     </a>
                                     <div class="item-body">
@@ -111,7 +111,7 @@
                                                 <a href="{{ url(optional($itemX->category)->slug . '/' .$itemX->slug) }}.html"
                                                    class="image-responsive">
                                                     <img class="image-responsive--lg img-fluid lazyload"
-                                                         data-src="{{ asset($itemX->image) }}"
+                                                         data-src="{{ !empty($itemX->image)?asset($itemX->image):asset('/images/no_image.jpg') }}"
                                                          alt="{{ $itemX->title }}">
                                                 </a>
                                                 <div class="item-body">
@@ -141,7 +141,7 @@
                                                         <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                                                            class="image-responsive">
                                                             <img class="image-responsive--lg img-fluid lazyload"
-                                                                 data-src="{{ asset($item->image) }}"
+                                                                 data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
                                                                  alt="{{ $item->title }}">
                                                         </a>
                                                     </div>
