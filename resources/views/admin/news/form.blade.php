@@ -99,12 +99,14 @@
     <script type="text/javascript" src="{{ asset('plugins/ckeditor_full/ckeditor.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('js/ckfinder/ckfinder.js') }}" ></script>
     <script>CKFinder.config({ connectorPath: '/ckfinder/connector' } );</script>
+    <script>
+        CKEDITOR.replace('content', {
+            filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
+        });
+    </script>
     @include('ckfinder::setup')
     <script type="text/javascript">
         $(function(){
-            CKEDITOR.replace('content', {
-                filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
-            });
             $('#image').change(function () {
                 var preview = document.querySelector('img.img-preview');
                 var file    = document.querySelector('#image').files[0];
