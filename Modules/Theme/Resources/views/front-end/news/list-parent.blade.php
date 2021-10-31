@@ -81,9 +81,10 @@
                     </div>
                     @include('theme::front-end.news.sidebar')
                 @else
-                    <div class="col-12 col-lg-12 text-center">
+                    <div class="col-12 col-lg-9 text-center">
                         <small>{{ trans('frontend.data_updated') }}</small>
                     </div>
+                    @include('theme::front-end.news.sidebar')
                 @endif
             </div>
         </div>

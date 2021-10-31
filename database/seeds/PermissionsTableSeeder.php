@@ -69,24 +69,6 @@ class PermissionsTableSeeder extends Seeder
             "44" => ["SliderController@destroy", "Slider"],
             "45" => ["SliderController@active", "Slider"],
 
-            "46" => ["CustomerController@index", "Khách hàng"],
-            "47" => ["CustomerController@show", "Khách hàng"],
-            "48" => ["CustomerController@store", "Khách hàng"],
-            "49" => ["CustomerController@update", "Khách hàng"],
-            "50" => ["CustomerController@destroy", "Khách hàng"],
-            "51" => ["CustomerController@active", "Khách hàng"],
-
-            //Quyền module Hỗ trợ
-            "52" => ["ContactController@index", "Liên hệ"],
-            "53" => ["NewsletterController@index", "Đăng ký nhận tin"],
-
-            //Quyền module About Us
-            "54" => ["AboutUsController@index", "Về chúng tôi"],
-            "55" => ["AboutUsController@show", "Về chúng tôi"],
-            "56" => ["AboutUsController@store", "Về chúng tôi"],
-            "57" => ["AboutUsController@update", "Về chúng tôi"],
-            "58" => ["AboutUsController@destroy", "Về chúng tôi"],
-            "59" => ["AboutUsController@active", "Về chúng tôi"],
         ];
 
         //ADD PERMISSIONS - Thêm các quyền
