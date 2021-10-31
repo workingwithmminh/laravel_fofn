@@ -29,7 +29,6 @@ $(document).ready(function() {
         $(".sidebar").toggleClass("active");
         $(this).removeClass("d-block");
         $(this).addClass("d-none");
-        $(".sidebar").css("box-shadow", "0 0 10px rgba(255, 255, 255, 0.9)");
         $("#overlay").show();
     });
 
