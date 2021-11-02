@@ -15,6 +15,7 @@ $(function() {
         itemsDesktopSmall : false,
         itemsTablet: false,
         itemsMobile : false,
+        dots: true
     });
 });
 

@@ -2,8 +2,8 @@
     <div class="news__viewer">
         <h2 class="news__viewer__title">Xem nhiều nhất</h2>
         @forelse($news_viewer as $item)
-            <div class="row mb-2">
-                <div class="col-12 col-md-5">
+            <div class="row p-2">
+                <div class="col-12 col-md-4 p-0">
                     <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                        class="image-responsive">
                         <img class="image-responsive--lg img-fluid lazyload"
@@ -11,7 +11,7 @@
                              alt="{{ $item->title }}">
                     </a>
                 </div>
-                <div class="col-12 col-md-7">
+                <div class="col-12 col-md-8">
                     <a class="news__title--small news__title--small--viewer" href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html">
                         {{ \Illuminate\Support\Str::limit($item->title, 30) }}
                     </a>

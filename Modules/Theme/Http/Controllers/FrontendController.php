@@ -34,16 +34,17 @@ class FrontendController extends Controller
         $mainMenus = $this->menu(1);
         $bottomMenus = $this->menu(2);
         $settings = Setting::allConfigsKeyValue();
-//        $sliders = Slider::where('active', config('settings.active'))->orderBy('arrange', 'ASC')->take(5)->get();
-//        $newsFocusSidebar = $this->getNewsFocus(config('settings.paginate.page5'));
+        $sliders = Slider::where('active', config('settings.active'))->orderBy('arrange', 'ASC')->take(5)->get();
         $news_viewer = News::with('category')->orderByDesc('view')->take(5)->get();
         $pages = Page::all();
+
         \View::share([
             'mainMenus' => $mainMenus,
             'bottomMenus' => $bottomMenus,
             'settings' => $settings,
             'keywords' => $this->getKeyword(),
             'news_viewer' => $news_viewer,
+            'sliders' => $sliders,
             'pages' => $pages
         ]);
     }
@@ -69,7 +70,7 @@ class FrontendController extends Controller
     public function index()
     {   
 //        $news = $this->getNewsFocus(config('settings.paginate.page10'));
-        $newsHot = News::with('category')->latest()->take(9)->get();
+        $newsHot = News::with('category')->latest()->take(6)->get();
         $categories = Category::with('parent', 'gallery')->whereNull('parent_id')->get();
         return view('theme::front-end.layouts.home', compact('newsHot', 'categories'));
     }
