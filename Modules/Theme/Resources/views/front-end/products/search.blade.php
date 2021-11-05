@@ -51,13 +51,13 @@
                 <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
                    class="image-responsive">
                     <img class="image-responsive--lg img-fluid lazyload"
-                         data-src="{{ asset($item->image) }}"
+                         data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
                          alt="{{ $item->title }}">
                 </a>
                 <div class="item-body">
                     <h5 class="news__title--lg">
                         <a href="{{ url($item->slug) }}.html"
-                           class="news__title--lg">{{ $item->title }}</a>
+                           class="news__title--lg">{{ \Illuminate\Support\Str::limit($item->title, 70) }}</a>
                     </h5>
                     <span class="news__date">
                         <a class="item-link"
@@ -72,7 +72,7 @@
             </div>
         @endforeach
     </div>
-    <div class="pagination-fixed d-flex justify-content-center mt-15" id="pagination-filter">
+    <div class="pagination-fixed d-flex justify-content-center mt-15" >
         {!! $news->appends(\Request::except('page'))->render() !!}
     </div>
 </div>
