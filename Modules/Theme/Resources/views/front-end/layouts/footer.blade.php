@@ -9,10 +9,10 @@
         <h4 class="footer__social__title">Liên hệ quảng cáo</h4>
         <div class="footer__social__content">
             <p>Điện thoại:<strong> {{ $settings['company_phone'] }}</strong><br>
-                Email: <strong>{{ $settings['company_email'] }}</strong></p>
-            <p>Đ/c: {{ $settings['company_address'] }}</p>
+                Email: <strong>{{ $settings['company_email'] }}</strong><br>
+                Đ/c: {{ $settings['company_address'] }}
+            </p>
         </div>
-        <hr>
         <div class="footer__copyright">Copyright © 2021 F0FN. All rights reserved</div>
     </div>
     <a class="back__top backtop" title="Lên đầu trang" href="#page-top"><i class="fa fa-angle-up"></i></a>
