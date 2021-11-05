@@ -1,11 +1,7 @@
 <header>
     <div class="header__top container py-1">
         <div class="row">
-            <div class="header__top__left col-sm-12 col-md-6">
-                <p>Email: <a rel="nofollow" href="mailto:{{ $settings['company_email'] }}"
-                             class="text-success"><small>{{ $settings['company_email'] }}</small></a></p>
-            </div>
-            <div class="header__top__right col-sm-12 col-md-6 d-flex align-items-center justify-content-end">
+            <div class="header__top__right col-md-12 d-flex align-items-center justify-content-end">
                 <div class="header__top__right__search">
                     <form method="GET" action="{{ route('tim-kiem') }}" class="search-form">
                         <input type="text" name="query" placeholder="Tìm kiếm...">
@@ -42,7 +38,7 @@
                                 @php($menuChild = \App\Menu::with('parent')->where('parent_id', $item->id)->get())
                                 @if($item->parent_id == null)
                                     @if($item->slug == 'trang-chu')
-                                        <li class="{{ (Request::segment(1) == 'trang-chu') ? 'active' : '' }}"><a
+                                        <li class="active"><a
                                                     href="{{ url($item->slug) }}{{ $item->type_id == 0 ? '' : '.html' }}"
                                                     class="hidden-sm hidden-xs"><i
                                                         class="fa fa-home"></i></a></li>

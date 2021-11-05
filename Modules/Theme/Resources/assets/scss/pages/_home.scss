@@ -167,8 +167,11 @@ textarea {
   color: #444;
 }
 .news__title--small--viewer {
-  font-size: 12px;
-  font-weight: 500;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  margin-bottom: 0;
+  text-transform: uppercase;
 }
 .news__viewer {
   padding: 10px;

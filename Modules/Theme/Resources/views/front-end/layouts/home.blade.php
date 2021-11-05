@@ -62,56 +62,58 @@
                     @php($news_small = $news->filter(function($news, $key){
                          return $key != 0;
                     }))
-                    <div class="row news__market--wrap">
-                        @if($news->count() >0)
-                            <div class="col-md-6">
-                                @if($news != null)
-                                    <a href="{{ url(optional($news[0]->category)->slug . '/' .$news[0]->slug) }}.html"
-                                       class="image-responsive">
-                                        <img class="img-fluid image-responsive--lg lazyload"
-                                             data-src="{{ !empty($news[0]->image)?asset($news[0]->image):asset('/images/no_image.jpg') }}"
-                                             alt="{{ $news[0]->title }}">
-                                    </a>
-                                    <a href="{{ url($news[0]->category->slug . '/' .$news[0]->slug) }}.html"
-                                       class="news__title--lg">{{ $news[0]->title }}</a>
-                                    <div class="news__date">
-                                        <a class="item-link"
-                                           href="{{ url(optional($news[0]->category)->slug) }}">{{ optional($news[0]->category)->title }}</a>
-                                        <span>-&nbsp;&nbsp;</span>
-                                        <span>{{ _("Cập nhật ").Carbon\Carbon::parse($news[0]->updated_at)->format(config('settings.format.date')) }}</span>
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="col-md-6">
-                                @foreach($news_small as $item)
-                                    <div class="row p-2">
-                                        <div class="col-md-3 p-0">
-                                            <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
-                                               class="image-responsive">
-                                                <img class="img-fluid image-responsive--lg lazyload"
-                                                     data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
-                                                     alt="{{ $item->title }}">
-                                            </a>
+                    @if($news->count() >0)
+                        <div class="news__market--wrap">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @if($news != null)
+                                        <a href="{{ url(optional($news[0]->category)->slug . '/' .$news[0]->slug) }}.html"
+                                           class="image-responsive">
+                                            <img class="img-fluid image-responsive--lg lazyload"
+                                                 data-src="{{ !empty($news[0]->image)?asset($news[0]->image):asset('/images/no_image.jpg') }}"
+                                                 alt="{{ $news[0]->title }}">
+                                        </a>
+                                        <a href="{{ url($news[0]->category->slug . '/' .$news[0]->slug) }}.html"
+                                           class="news__title--lg">{{ $news[0]->title }}</a>
+                                        <div class="news__date">
+                                            <a class="item-link"
+                                               href="{{ url(optional($news[0]->category)->slug) }}">{{ optional($news[0]->category)->title }}</a>
+                                            <span>-&nbsp;&nbsp;</span>
+                                            <span>{{ _("Cập nhật ").Carbon\Carbon::parse($news[0]->updated_at)->format(config('settings.format.date')) }}</span>
                                         </div>
-                                        <div class="col-md-9">
-                                            <a href="{{ url($item->category->slug . '/' .$item->slug) }}.html"
-                                               class="news__title--small">{{ \Illuminate\Support\Str::limit($item->title, 60) }}</a>
-                                            <span class="news__date">
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    @foreach($news_small as $item)
+                                        <div class="row p-2">
+                                            <div class="col-md-3 p-0">
+                                                <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
+                                                   class="image-responsive">
+                                                    <img class="img-fluid image-responsive--lg lazyload"
+                                                         data-src="{{ !empty($item->image)?asset($item->image):asset('/images/no_image.jpg') }}"
+                                                         alt="{{ $item->title }}">
+                                                </a>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <a href="{{ url($item->category->slug . '/' .$item->slug) }}.html"
+                                                   class="news__title--small">{{ \Illuminate\Support\Str::limit($item->title, 60) }}</a>
+                                                <span class="news__date">
                                                  <i>{{ _("Cập nhật ").Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}</i>
                                             </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
-                        @else
-                            <div class="col-md-12 text-center">
-                                <small>{{ trans('frontend.data_updated') }}</small>
-                            </div>
-                        @endif
-                    </div>
+                        </div>
+                    @else
+                        <div class="col-md-12 text-center">
+                            <small>{{ trans('frontend.data_updated') }}</small>
+                        </div>
+                    @endif
+
+
                 </div>
-
-
             </div>
         @endforeach
     </section>
