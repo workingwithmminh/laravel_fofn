@@ -83,6 +83,9 @@
                 @else
                     <div class="col-12 col-lg-9 text-center">
                         <small>{{ trans('frontend.data_updated') }}</small>
+                        <div>
+                            <img class="img-fluid lazyload" data-src="{{ asset('images/empty.gif') }}" height="50" width="150">
+                        </div>
                     </div>
                     @include('theme::front-end.news.sidebar')
                 @endif
@@ -165,6 +168,9 @@
                             @else
                                 <div class="col-12 col-md-12 text-center">
                                     <small>{{ trans('frontend.data_updated') }}</small>
+                                    <div>
+                                        <img class="img-fluid lazyload" data-src="{{ asset('images/empty.gif') }}" height="50" width="150">
+                                    </div>
                                 </div>
                             @endif
                         </div>

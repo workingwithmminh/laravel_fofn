@@ -36,3 +36,26 @@
     overflow: hidden;
   }
 }
+.news-slider  {
+  .owl-dots {
+    display: block !important;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  button.owl-dot {
+    background: #989a9a !important;
+    color: #989a9a !important;
+    width: 10px;
+    border-radius: 100% !important;
+    height: 10px;
+    border: 1px solid #989a9a !important;
+    margin: 2px;
+  }
+  button.owl-dot.active {
+    background: #1f5014 !important;
+    border-color: #1f5014 !important;
+  }
+}
+

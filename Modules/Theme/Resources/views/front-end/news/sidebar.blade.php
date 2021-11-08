@@ -12,7 +12,8 @@
                     </a>
                 </div>
                 <div class="col-12 col-md-8">
-                    <a class="news__title--small news__title--small--viewer" href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html">
+                    <a class="news__title--small news__title--small--viewer"
+                       href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html" title="{{ $item->title }}">
                         {{ \Illuminate\Support\Str::limit($item->title, 30) }}
                     </a>
                 </div>

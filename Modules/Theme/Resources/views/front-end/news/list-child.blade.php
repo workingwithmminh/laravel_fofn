@@ -69,7 +69,7 @@
                                 <div class="item-body">
                                     <h5 class="news__title--lg">
                                         <a href="{{ url(optional($item->category)->slug . '/' .$item->slug) }}.html"
-                                           class="news__title--lg">{{ $item->title }}</a>
+                                           class="news__title--lg" title="{{ $item->title }}">{{ \Illuminate\Support\Str::limit($item->title, 50) }}</a>
                                     </h5>
                                     <span class="news__date">
                                         {{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.date')) }}
@@ -89,6 +89,9 @@
             @else
                 <div class="col-12 col-lg-9 text-center">
                    <small>{{ trans('frontend.data_updated') }}</small>
+                    <div>
+                        <img class="img-fluid lazyload" data-src="{{ asset('images/empty.gif') }}" height="50" width="150">
+                    </div>
                 </div>
                 @include('theme::front-end.news.sidebar')
             @endif
