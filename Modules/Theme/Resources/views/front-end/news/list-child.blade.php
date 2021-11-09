@@ -88,9 +88,8 @@
                 @include('theme::front-end.news.sidebar')
             @else
                 <div class="col-12 col-lg-9 text-center">
-                   <small>{{ trans('frontend.data_updated') }}</small>
                     <div>
-                        <img class="img-fluid lazyload" data-src="{{ asset('images/empty.gif') }}" height="50" width="150">
+                        <img class="img-fluid lazyload" data-src="{{ asset('images/empty.gif') }}" >
                     </div>
                 </div>
                 @include('theme::front-end.news.sidebar')

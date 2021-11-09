@@ -59,3 +59,9 @@
   }
 }
 
+@media (max-width: 600px) {
+  .owl-carousel .item {
+    height: 150px !important;
+  }
+}
+

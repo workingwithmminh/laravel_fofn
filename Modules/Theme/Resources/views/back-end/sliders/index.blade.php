@@ -46,7 +46,6 @@
                     <th class="text-center">{{ trans('message.index') }}</th>
                     <th class="text-center">{{ trans('theme::sliders.image') }}</th>
                     <th>@sortablelink('title',trans('theme::sliders.name'))</th>
-                    <th>{{ trans('theme::sliders.link') }}</th>
                     <th class="text-center">{{ trans('theme::sliders.active') }}</th>
                     <th>@sortablelink('updated_at',trans('theme::sliders.updated_at'))</th>
                     <th></th>
@@ -56,7 +55,6 @@
                     <td class="text-center">{{ ++$index }}</td>
                     <td class="text-center">{!! $item->image ? '<img width="40" height="40" src="'.asset($item->image).'">' : '' !!}</td>
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->link }}</td>
                     <td class="text-center">{!! $item->active == config('settings.active') ? '<i class="fa fa-check text-primary"></i>' : ''  !!}</td>
                     <td>{{ Carbon\Carbon::parse($item->updated_at)->format(config('settings.format.datetime')) }}</td>
                     <td>

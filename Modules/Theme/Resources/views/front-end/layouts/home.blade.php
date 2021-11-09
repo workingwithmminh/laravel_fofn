@@ -108,9 +108,8 @@
                         </div>
                     @else
                         <div class="col-md-12 text-center">
-                            <small>{{ trans('frontend.data_updated') }}</small>
                             <div>
-                                <img class="img-fluid lazyload" data-src="{{ asset('images/empty.gif') }}" height="50" width="150">
+                                <img class="img-fluid lazyload" data-src="{{ asset('images/empty.gif') }}">
                             </div>
                         </div>
                     @endif

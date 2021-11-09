@@ -35,9 +35,9 @@
                         {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
                     </div>
                     <div class="clearfix"></div>
-                    <div class="imgprev-wrap" style="display:{{ !empty($news->image)?'block':'none' }}">
+                    <div class="imgprev-wrap" style="display:{{ !empty($slider->image)?'block':'none' }}">
                         <input type="hidden" value="" name="img-hidden" />
-                        <img class="img-preview" src="{{ !empty($news->image)?asset($news->image):'' }}" alt="{{ trans('theme::news.image') }}" />
+                        <img class="img-preview" src="{{ !empty($slider->image)?asset($slider->image):'' }}" alt="{{ trans('theme::news.image') }}" />
                         <i class="fa fa-trash text-danger"></i>
                     </div>
                 </div>
