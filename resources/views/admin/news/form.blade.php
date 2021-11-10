@@ -93,7 +93,7 @@
 </div>
 <div class="box-footer">
     {!! Form::submit(isset($submitButtonText) ? $submitButtonText : __('message.save'), ['class' => 'btn btn-md btn-info']) !!}
-    <a href="{{ !empty($backUrl) ? $backUrl : url('admin/news') }}" class="btn btn-default">{{ __('message.close') }}</a>
+    <a href="{{ !empty($backUrl) ? $backUrl : url('admin/news') }}" class="btn btn-default" style="margin: 5px;">{{ __('message.close') }}</a>
 </div>
 @section('scripts-footer')
     <script type="text/javascript" src="{{ asset('plugins/ckeditor_full/ckeditor.js') }}" ></script>

@@ -156,7 +156,7 @@
 <div class="box-footer">
     {!! Form::submit(isset($submitButtonText) ? $submitButtonText : __('message.save'), ['class' => 'btn btn-md btn-info']) !!}
     @if(!isset($isProfile) || !$isProfile)
-        <a href="{{ url('/admin/users') }}" class="btn btn-default">{{ __('message.close') }}</a>
+        <a href="{{ url('/admin/users') }}" class="btn btn-default" style="margin: 5px;">{{ __('message.close') }}</a>
     @endif
 </div>
 @section('scripts-footer')

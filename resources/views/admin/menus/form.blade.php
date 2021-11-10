@@ -73,7 +73,7 @@
 
 <div class="box-footer">
     {!! Form::submit(isset($submitButtonText) ? $submitButtonText : __('message.save'), ['class' => 'btn btn-primary']) !!}
-    <a href="{{ url('/menus') }}" class="btn btn-default">{{ __('message.close') }}</a>
+    <a href="{{ url('/menus') }}" class="btn btn-default" style="margin: 5px;">{{ __('message.close') }}</a>
 </div>
 
 @section('scripts-footer')
